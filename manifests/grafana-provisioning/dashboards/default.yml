@@ -1,0 +1,14 @@
+# Grafana Dashboard Configuration
+# Automatically provisions dashboards from local files
+
+apiVersion: 1
+
+providers:
+  - name: 'agentgateway-dashboards'
+    orgId: 1
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: /var/lib/grafana/dashboards

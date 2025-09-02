@@ -72,6 +72,7 @@ data:
         send_batch_size: 1024
       memory_limiter:
         limit_mib: 256
+        check_interval: 1s
       resource:
         attributes:
           - key: service.name
@@ -93,8 +94,9 @@ data:
         const_labels:
           service: agentgateway
       
-      jaeger:
-        endpoint: jaeger-collector:14250
+      # Use OTLP exporter for Jaeger (Jaeger supports OTLP natively)
+      otlp/jaeger:
+        endpoint: jaeger-collector:4317
         tls:
           insecure: true
       
@@ -106,7 +108,7 @@ data:
         traces:
           receivers: [otlp]
           processors: [memory_limiter, resource, batch]
-          exporters: [jaeger, logging]
+          exporters: [otlp/jaeger, logging]
         
         metrics:
           receivers: [otlp]

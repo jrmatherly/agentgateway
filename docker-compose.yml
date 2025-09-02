@@ -23,7 +23,7 @@ services:
       # Observability
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
       - PROMETHEUS_ENDPOINT=0.0.0.0:8080
-      - OTLP_PROTOCOL=grpc
+      - OTLP_PROTOCOL="grpc"
       - OTLP_HEADERS={"service":"agentgateway","environment":"docker"}
 
       # Performance Tuning
@@ -53,7 +53,7 @@ services:
       - ./examples/basic/config.yaml:/app/config.yaml:ro
       # Mount examples directory for easy config switching
       - ./examples:/app/examples:ro
-    command: ["/app/agentgateway", "-f", "/app/config.yaml"]
+    command: ["-f", "/app/config.yaml"]
     depends_on:
       - otel-collector
       - prometheus
@@ -89,8 +89,9 @@ services:
   #               PostgreSQL                         #
   #==================================================#
   postgres:
-    image: postgres:16-alpine
+    image: postgres:17-alpine
     environment:
+      TZ: America/New_York
       POSTGRES_DB: agentgateway
       POSTGRES_USER: agentgateway
       POSTGRES_PASSWORD: password
@@ -124,7 +125,7 @@ services:
     volumes:
       - redis_data:/data
     environment:
-      - "TZ=${TZ}"
+      - "TZ=America/New_York"
       - "REDISCLI_AUTH=${REDIS_PASSWORD}"
     healthcheck:
       test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
@@ -141,9 +142,7 @@ services:
     volumes:
       - ./manifests/otel-collector-config.yaml:/etc/otel-collector-config.yaml
     ports:
-      - "4317:4317" # OTLP gRPC receiver
-      - "4318:4318" # OTLP HTTP receiver
-      - "8888:8888" # Prometheus metrics
+      - "8889:8889" # Prometheus metrics (OTLP ports handled by Jaeger directly)
     depends_on:
       - prometheus
       - jaeger
@@ -174,14 +173,15 @@ services:
   grafana:
     image: grafana/grafana:10.2.3
     ports:
-      - "3001:3000"
+      - "3003:3000"
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_USERS_ALLOW_SIGN_UP=false
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./manifests/grafana.json:/var/lib/grafana/dashboards/agentgateway.json
-      - ./manifests/grafana-provisioning:/etc/grafana/provisioning
+      # Temporarily disabled due to Grafana regression issue - dashboard can be imported manually
+      # - ./manifests/grafana.json:/var/lib/grafana/dashboards/agentgateway.json
+      # - ./manifests/grafana-provisioning:/etc/grafana/provisioning
     depends_on:
       - prometheus
     restart: unless-stopped
@@ -195,6 +195,8 @@ services:
       - "14268:14268" # jaeger-collector HTTP
       - "16686:16686" # jaeger-ui
       - "14250:14250" # jaeger-collector gRPC
+      - "4317:4317"   # OTLP gRPC receiver
+      - "4318:4318"   # OTLP HTTP receiver
     environment:
       - COLLECTOR_OTLP_ENABLED=true
     restart: unless-stopped

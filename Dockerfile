@@ -1,6 +1,6 @@
 ARG BUILDER=base
 
-FROM docker.io/library/node:23.11.0-bookworm AS node
+FROM docker.io/library/node:22-bookworm AS node
 
 WORKDIR /app
 
@@ -49,6 +49,10 @@ EOF
 FROM ${BUILDER}-builder AS builder
 ARG TARGETARCH
 ARG PROFILE=release
+
+# Validate PROFILE argument
+RUN if [ "$PROFILE" != "release" ] && [ "$PROFILE" != "debug" ] && [ "$PROFILE" != "dev" ]; then \
+  echo "Invalid PROFILE: $PROFILE. Must be release, debug, or dev" && exit 1; fi
 
 WORKDIR /app
 

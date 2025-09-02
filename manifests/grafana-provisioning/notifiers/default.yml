@@ -1,0 +1,29 @@
+# Grafana Notification Configuration
+# Configure alerting channels (optional)
+
+# Example notification channel configuration
+# Uncomment and configure as needed
+
+# notifiers:
+#   - name: 'slack-notifications'
+#     type: slack
+#     uid: slack_uid
+#     settings:
+#       url: 'https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK'
+#       channel: '#alerts'
+#       iconEmoji: ':exclamation:'
+#       title: 'Agentgateway Alert'
+#       text: >
+#         {{ range .Alerts }}
+#           Alert: {{ .Annotations.summary }}
+#           Description: {{ .Annotations.description }}
+#         {{ end }}
+
+# For webhook notifications:
+# notifiers:
+#   - name: 'webhook-notifications'
+#     type: webhook
+#     uid: webhook_uid
+#     settings:
+#       url: 'http://your-webhook-endpoint:8080/alerts'
+#       httpMethod: 'POST'

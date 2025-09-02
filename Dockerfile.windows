@@ -30,12 +30,17 @@ COPY Makefile Cargo.toml Cargo.lock ./
 COPY crates ./crates
 COPY common ./common
 
-# Build the Rust project for Windows
+# Build the Rust project for Windows  
 RUN $env:TARGET=\"x86_64-pc-windows-msvc\"; \
     cargo fetch --locked; \
     make build-target; \
     mkdir C:/out; \
     Move-Item -Path C:/app/target/x86_64-pc-windows-msvc/release/agentgateway.exe -Destination C:/out/agentgateway.exe
+
+# Create service user for security
+RUN $user = 'agentgateway'; \
+    net user $user /add /passwordreq:no /active:yes; \
+    net localgroup users $user /add
 
 # Final runtime image
 FROM mcr.microsoft.com/windows/nanoserver:ltsc2022 AS runner
@@ -43,7 +48,31 @@ FROM mcr.microsoft.com/windows/nanoserver:ltsc2022 AS runner
 WORKDIR C:/app
 COPY --from=builder C:/out/agentgateway.exe C:/app/agentgateway.exe
 
+# Add comprehensive labels
+LABEL org.opencontainers.image.title="Agentgateway"
+LABEL org.opencontainers.image.description="High-performance data plane for agentic AI connectivity with Agent2Agent (A2A) and Model Context Protocol (MCP) support - Windows Edition"
 LABEL org.opencontainers.image.source=https://github.com/agentgateway/agentgateway
-LABEL org.opencontainers.image.description="Agentgateway is an open source project that is built on AI-native protocols to connect, secure, and observe agent-to-agent and agent-to-tool communication across any agent framework and environment."
+LABEL org.opencontainers.image.url=https://github.com/agentgateway/agentgateway  
+LABEL org.opencontainers.image.documentation=https://github.com/agentgateway/agentgateway/blob/main/README.md
+LABEL org.opencontainers.image.licenses=Apache-2.0
+
+# Security labels
+LABEL security.scan-policy="strict"
+LABEL security.non-root="true"
+LABEL security.platform="windows"
+
+# Copy service user from builder (Windows user management)
+COPY --from=builder C:/Windows/System32/config/SAM C:/Windows/System32/config/SAM
+COPY --from=builder C:/Windows/System32/config/SYSTEM C:/Windows/System32/config/SYSTEM
+
+# Switch to service user
+USER agentgateway
+
+# Expose ports
+EXPOSE 3000 8080
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
+  CMD ["C:\\app\\agentgateway.exe", "--validate-only"]
 
 ENTRYPOINT ["C:\\app\\agentgateway.exe"]

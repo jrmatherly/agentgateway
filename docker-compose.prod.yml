@@ -1,11 +1,27 @@
 # Production environment configuration
 # Usage: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+#
+# Image Strategy: Hybrid Pull/Build
+# 1. First attempts to pull from registry (ghcr.io/agentgateway/agentgateway:v1.0.0)
+# 2. Falls back to local build if image is not available
+# 3. Supports both CI/CD deployments (with pre-built images) and local testing
 
 version: "3.8"
 
 services:
+  #==================================================#
+  #               Agentgateway                       #
+  #==================================================#
   agentgateway:
-    image: ghcr.io/agentgateway/agentgateway:latest
+    image: ghcr.io/agentgateway/agentgateway:v1.0.0 # Pin to specific version for production
+    build: # Fallback build configuration if image is not available
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+      args:
+        - BUILDER=base
+        - PROFILE=release
+        - VERSION=v1.0.0
     environment:
       # Production logging
       - RUST_LOG=warn
@@ -65,7 +81,9 @@ services:
     tmpfs:
       - /tmp:rw,size=200M,noexec,nosuid,nodev
 
-  # Production monitoring stack would typically be external
+  #==================================================#
+  #               OpenTelemetry Collector            #
+  #==================================================#
   otel-collector:
     image: otel/opentelemetry-collector-contrib:0.94.0
     environment:

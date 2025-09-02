@@ -1,32 +1,47 @@
 version: "3.8"
 
 services:
+  #==================================================#
+  #               Agentgateway                       #
+  #==================================================#
   agentgateway:
     build:
-      target: builder # Use builder stage for development with debug tools
+      target: runner # Use runner stage for proper binary location
       args:
         - PROFILE=dev
+        - BUILDKIT_INLINE_CACHE=1
     environment:
+      - BUILDX_NO_DEFAULT_ATTESTATIONS=1  # Disable provenance attestations for faster builds
       - RUST_LOG=debug
       - RUST_BACKTRACE=1
     volumes:
-      - .:/app/src:ro # Mount source for hot reload (if supported)
       - ./examples:/app/examples:ro
-      - target_cache:/app/target # Cache target directory
+    healthcheck:
+      test: ["CMD", "/app/agentgateway", "--validate-only", "-f", "/app/examples/basic/config.yaml"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     ports:
       - "3000:3000"
       - "8080:8080"
       - "9000:9000" # Debug port
-    command: ["/app/target/debug/agentgateway", "-f", "/app/config.yaml"]
+    command:
+      [
+        "-f",
+        "/app/examples/basic/config.yaml",
+      ]
     deploy:
       resources:
         limits:
           memory: 2G
           cpus: "2.0"
 
-  # Mock MCP server for testing
+  #==================================================#
+  #               MCP Mock Server                    #
+  #==================================================#
   mcp-mock:
-    image: node:20-alpine
+    image: node:22-alpine
     working_dir: /app
     volumes:
       - ./ui:/app
@@ -39,7 +54,9 @@ services:
       - dev
       - testing
 
-  # Development tools container
+  #==================================================#
+  #               Development Tools                  #
+  #==================================================#
   dev-tools:
     image: rust:1.89.0-slim-bookworm
     working_dir: /app

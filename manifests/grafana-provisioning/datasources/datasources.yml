@@ -1,0 +1,55 @@
+# Grafana Datasource Provisioning Configuration
+# Automatically provisions Prometheus and Jaeger datasources
+# 
+# Schema: No official JSON schema available for Grafana datasource provisioning
+# Reference: https://github.com/grafana/grafana/blob/main/conf/provisioning/datasources/sample.yaml
+# Documentation: https://grafana.com/docs/grafana/latest/administration/provisioning/#data-sources
+
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: false
+    version: 1
+    uid: prometheus
+    jsonData:
+      httpMethod: POST
+      manageAlerts: true
+      prometheusType: Prometheus
+      prometheusVersion: "2.48.1"
+      cacheLevel: "High"
+      disableRecordingRules: false
+      incrementalQueryOverlapWindow: "10m"
+      timeInterval: "5s"
+      queryTimeout: "60s"
+      defaultEditor: "code"
+      exemplarTraceIdDestinations:
+        - name: jaeger
+          datasourceUid: jaeger
+          url: "http://jaeger:16686/trace/{}"
+
+  - name: Jaeger
+    type: jaeger
+    access: proxy
+    url: http://jaeger:16686
+    uid: jaeger
+    editable: false
+    version: 1
+    jsonData:
+      tracesToMetrics:
+        datasourceUid: prometheus
+        tags:
+          - key: service.name
+            value: service
+          - key: job
+            value: job
+      nodeGraph:
+        enabled: true
+      search:
+        hide: false
+      spanBar:
+        type: Tag

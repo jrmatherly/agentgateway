@@ -4,6 +4,9 @@
 version: "3.8"
 
 services:
+  #==================================================#
+  #               Agentgateway                       #
+  #==================================================#
   agentgateway:
     environment:
       # Development overrides
@@ -27,5 +30,33 @@ services:
 
       # Custom OTLP headers for development
       - OTLP_HEADERS=service=agentgateway-dev,environment=development,version=latest
-# Production environment file (docker-compose.prod.yml)
-# This file shows production-optimized environment variables
+
+  #==================================================#
+  #               PostgreSQL                         #
+  #==================================================#
+  postgres:
+    environment:
+      - POSTGRES_PASSWORD=dev_password_123
+
+  #==================================================#
+  #               Redis                              #
+  #==================================================#
+  redis:
+    environment:
+      - REDIS_PASSWORD=dev_redis_123
+
+  #==================================================#
+  #               Grafana                            #
+  #==================================================#
+  grafana:
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=dev_admin_123
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel,grafana-worldmap-panel
+
+  #==================================================#
+  #               Jaeger                             #
+  #==================================================#
+  jaeger:
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+      - SPAN_STORAGE_TYPE=memory
