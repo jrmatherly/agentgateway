@@ -1,0 +1,38 @@
+{
+  "recommendations": [
+    // Rust development
+    "rust-lang.rust-analyzer",
+    "vadimcn.vscode-lldb",
+    "serayuzgur.crates",
+    
+    // Frontend (TypeScript/React/Next.js)
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.vscode-typescript-next",
+    "esbenp.prettier-vscode",
+    
+    // Configuration files
+    "tamasfe.even-better-toml",
+    "redhat.vscode-yaml",
+    "ms-vscode.vscode-json",
+    
+    // Development workflow
+    "ms-vscode.makefile-tools",
+    "github.vscode-pull-request-github",
+    "ms-vscode.test-adapter-converter",
+    
+    // Protocol development
+    "zxh404.vscode-proto3",
+    
+    // Git and version control
+    "mhutchie.git-graph",
+    "eamodio.gitlens"
+  ],
+  "unwantedRecommendations": [
+    // Avoid conflicting Rust extensions
+    "rust-lang.rust",
+    "kalitaalexey.vscode-rust",
+    
+    // Avoid outdated TOML extensions
+    "bungcip.better-toml"
+  ]
+}

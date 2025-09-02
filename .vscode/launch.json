@@ -1,0 +1,62 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug agentgateway",
+      "cargo": {
+        "args": ["build", "--bin=agentgateway", "--package=agentgateway-app"],
+        "filter": {
+          "name": "agentgateway",
+          "kind": "bin"
+        }
+      },
+      "args": ["-f", "examples/basic/config.yaml"],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "build-ui"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug agentgateway (validate only)",
+      "cargo": {
+        "args": ["build", "--bin=agentgateway", "--package=agentgateway-app"],
+        "filter": {
+          "name": "agentgateway",
+          "kind": "bin"
+        }
+      },
+      "args": ["-f", "examples/basic/config.yaml", "--validate-only"],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug unit tests",
+      "cargo": {
+        "args": ["test", "--no-run", "--bin=agentgateway", "--package=agentgateway"],
+        "filter": {
+          "name": "agentgateway",
+          "kind": "bin"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug integration tests",
+      "cargo": {
+        "args": ["test", "--no-run", "--test"],
+        "filter": {
+          "kind": "test"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "run-validation-deps"
+    }
+  ]
+}

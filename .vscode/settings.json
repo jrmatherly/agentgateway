@@ -1,0 +1,151 @@
+{
+  // Rust configuration
+  "rust-analyzer.cargo.features": [
+    "ui"
+  ],
+  "rust-analyzer.check.overrideCommand": [
+    "cargo",
+    "clippy",
+    "--workspace",
+    "--message-format=json",
+    "--all-targets"
+  ],
+  "rust-analyzer.procMacro.enable": true,
+  "rust-analyzer.cargo.buildScripts.enable": true,
+  // TOML formatter configuration
+  "evenBetterToml.formatter.columnWidth": 100,
+  "evenBetterToml.formatter.allowedBlankLines": 2,
+  "evenBetterToml.formatter.indentString": "  ",
+  "evenBetterToml.formatter.trailingNewline": true,
+  // YAML configuration for agentgateway configs
+  "yaml.schemas": {
+    "./schema/local.json": [
+      "examples/**/*.yaml",
+      "examples/**/*.yml",
+      "**/config.yaml",
+      "**/config.yml"
+    ]
+  },
+  "yaml.validate": true,
+  "yaml.format.enable": true,
+  // TypeScript/JavaScript configuration
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.suggest.autoImports": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  // Prettier configuration
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+    "editor.formatOnSave": true
+  },
+  "[toml]": {
+    "editor.defaultFormatter": "tamasfe.even-better-toml"
+  },
+  // File associations
+  "files.associations": {
+    "*.yaml": "yaml",
+    "*.yml": "yaml",
+    "Cargo.toml": "toml",
+    "Cargo.lock": "toml",
+    "rust-toolchain.toml": "toml",
+    "**/mcp_config.json": "json",
+    "mcp*.json": "json"
+  },
+  // Testing configuration
+  "rust-analyzer.runnables.command": "cargo",
+  "rust-analyzer.lens.enable": true,
+  "rust-analyzer.lens.run.enable": true,
+  "rust-analyzer.lens.debug.enable": true,
+  // Build configuration
+  "rust-analyzer.cargo.allTargets": false,
+  "rust-analyzer.cargo.target": null,
+  // Performance optimization
+  "rust-analyzer.server.extraEnv": {
+    "CARGO_TARGET_DIR": "target/rust-analyzer"
+  },
+  // Git configuration
+  "git.autofetch": true,
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  // Terminal configuration
+  "terminal.integrated.env.osx": {
+    "CARGO_NET_GIT_FETCH_WITH_CLI": "true"
+  },
+  "terminal.integrated.env.linux": {
+    "CARGO_NET_GIT_FETCH_WITH_CLI": "true"
+  },
+  // Search configuration
+  "search.exclude": {
+    "**/target": true,
+    "**/node_modules": true,
+    "**/ui/.next": true,
+    "**/ui/out": true,
+    "**/*.lock": true
+  },
+  // File watcher configuration
+  "files.watcherExclude": {
+    "**/target/**": true,
+    "**/node_modules/**": true,
+    "**/ui/.next/**": true,
+    "**/ui/out/**": true
+  },
+  // Language specific settings
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+  "[json]": {
+    "editor.defaultFormatter": "ms-vscode.vscode-json",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+  // JSON validation - restored with selective schema control
+  "json.schemaDownload.enable": true,
+  "json.validate.enable": true,
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "**/package.json"
+      ],
+      "url": "https://json.schemastore.org/package.json"
+    },
+    {
+      "fileMatch": [
+        "**/tsconfig.json",
+        "**/tsconfig.*.json"
+      ],
+      "url": "https://json.schemastore.org/tsconfig.json"
+    },
+    {
+      "fileMatch": [
+        "**/.vscode/settings.json"
+      ],
+      "url": "vscode://schemas/settings/folder"
+    },
+    {
+      "fileMatch": [
+        "**/mcp_config.json",
+        "**/mcp*.json"
+      ],
+      "schema": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    }
+  ],
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  // Tailwind CSS configuration
+  "tailwindCSS.includeLanguages": {
+    "rust": "html"
+  },
+  "tailwindCSS.experimental.classRegex": [
+    "class:\\s*\"([^\"]*)\""
+  ]
+}
