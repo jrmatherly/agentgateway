@@ -1,0 +1,19 @@
+# Taplo configuration file
+# Disables schema validation to prevent false positives with custom Cargo profiles
+
+[schema]
+enabled = false
+
+[formatter]
+column_width = 100
+allowed_blank_lines = 2
+indent_string = "  "
+trailing_newline = true
+
+# File-specific configurations
+[[rule]]
+name = "cargo_toml"
+include = ["**/Cargo.toml"]
+
+[rule.schema]
+enabled = false  # Specifically disable schema validation for Cargo.toml files

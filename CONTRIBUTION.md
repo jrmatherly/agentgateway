@@ -83,7 +83,6 @@ We follow the [Conventional Commits](https://www.conventionalcommits.org/) speci
 
 7. Once approved, a maintainer will merge your PR.
 
-
 ### Documentation
 
 - Update documentation for any changes to APIs, CLIs, or user-facing features

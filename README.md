@@ -41,7 +41,7 @@
 
 [![Agentgateway Intro Video](https://img.youtube.com/vi/SomP92JWPmE/hqdefault.jpg)](https://youtu.be/SomP92JWPmE)
 
-## Key Features:
+## Key Features
 
 - [x] **Highly performant:** agentgateway is written in rust, and is designed from the ground up to handle any scale you can throw at it.
 - [x] **Security First:** agentgateway includes a robust MCP/A2A focused RBAC system.
@@ -81,9 +81,8 @@ Recordings of the community meetings will be published on our [google drive](htt
 Thanks to all contributors who are helping to make agentgateway better.
 
 <a href="https://github.com/agentgateway/agentgateway/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=agentgateway/agentgateway" />
+  <img src="https://contrib.rocks/image?repo=agentgateway/agentgateway" alt="Contributors" />
 </a>
-
 
 ### Star History
 

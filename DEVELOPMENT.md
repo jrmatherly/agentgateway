@@ -30,4 +30,3 @@ Run the agentgateway binary:
 ./target/release/agentgateway
 ```
 Open your browser and navigate to `http://localhost:15000/ui` to see the agentgateway UI.
-

@@ -67,7 +67,7 @@ mcpAuthentication:
    resourcePolicyUri: http://localhost:3000/stdio/policies
 ```
 
-## Key information:
+## Key information
 
 Audience and resource can be used interchangeably.
 The resource returned by the .well-known/oauth-protected-resource has to be the same as the domain the result is returned from. Meaning:
