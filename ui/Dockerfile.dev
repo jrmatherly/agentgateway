@@ -1,0 +1,31 @@
+FROM node:20-alpine AS dev
+
+RUN apk add --no-cache libc6-compat
+
+WORKDIR /app
+
+# Install dependencies with proper caching
+COPY package*.json ./
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci --only=production && npm cache clean --force
+
+# Copy source code
+COPY . .
+
+# Create non-root user for development
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nextjs -u 1001 && \
+    chown -R nextjs:nodejs /app
+
+USER nextjs
+
+# Expose port
+EXPOSE 3000
+
+# Set environment variables
+ENV NODE_ENV=development
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+
+# Start development server
+CMD ["npm", "run", "dev"]

@@ -1,0 +1,114 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: agentgateway-config
+  namespace: agentgateway
+  labels:
+    app.kubernetes.io/name: agentgateway
+    app.kubernetes.io/component: config
+data:
+  config.yaml: |
+    # Default configuration for Kubernetes deployment
+    binds:
+    - port: 3000
+      listeners:
+      - routes:
+        - policies:
+            cors:
+              allowOrigins:
+                - "*"
+              allowHeaders:
+                - mcp-protocol-version
+                - content-type
+                - cache-control
+                - authorization
+            rateLimit:
+              requests: 1000
+              window: "1m"
+          backends:
+          - mcp:
+              targets:
+              - name: everything
+                stdio:
+                  cmd: npx
+                  args: ["@modelcontextprotocol/server-everything"]
+
+    # Observability configuration
+    telemetry:
+      metrics:
+        prometheus:
+          enabled: true
+          endpoint: "0.0.0.0:8080"
+      tracing:
+        otlp:
+          enabled: true
+          endpoint: "http://otel-collector:4317"
+      logging:
+        level: info
+        format: json
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-collector-config
+  namespace: agentgateway
+  labels:
+    app.kubernetes.io/name: otel-collector
+    app.kubernetes.io/component: config
+data:
+  config.yaml: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+
+    processors:
+      batch:
+        timeout: 1s
+        send_batch_size: 1024
+      memory_limiter:
+        limit_mib: 256
+      resource:
+        attributes:
+          - key: service.name
+            value: agentgateway
+            action: upsert
+          - key: deployment.environment
+            value: production
+            action: upsert
+          - key: k8s.cluster.name
+            from_attribute: k8s.cluster.name
+            action: upsert
+          - key: k8s.namespace.name
+            from_attribute: k8s.namespace.name
+            action: upsert
+
+    exporters:
+      prometheus:
+        endpoint: "0.0.0.0:8888"
+        const_labels:
+          service: agentgateway
+      
+      jaeger:
+        endpoint: jaeger-collector:14250
+        tls:
+          insecure: true
+      
+      logging:
+        loglevel: info
+
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [memory_limiter, resource, batch]
+          exporters: [jaeger, logging]
+        
+        metrics:
+          receivers: [otlp]
+          processors: [memory_limiter, resource, batch]
+          exporters: [prometheus, logging]

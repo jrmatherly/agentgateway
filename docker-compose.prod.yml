@@ -1,0 +1,77 @@
+# Production environment configuration
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+version: "3.8"
+
+services:
+  agentgateway:
+    image: ghcr.io/agentgateway/agentgateway:latest
+    environment:
+      # Production logging
+      - RUST_LOG=warn
+      - RUST_BACKTRACE=0
+
+      # Production observability
+      - OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-collector.production:4317
+      - OTLP_HEADERS={"service":"agentgateway","environment":"production","cluster":"prod-us-west-2"}
+
+      # Production performance optimization
+      - WORKER_THREADS=100% # Use all available cores
+      - THREADING_MODE=thread_per_core # Maximum performance
+      - CPU_LIMIT=${CPU_LIMIT:-8} # From Kubernetes downward API
+
+      # Production HTTP/2 settings
+      - HTTP2_STREAM_WINDOW_SIZE=16777216 # 16MB
+      - HTTP2_CONNECTION_WINDOW_SIZE=67108864 # 64MB
+      - POOL_MAX_STREAMS_PER_CONNECTION=500
+      - POOL_UNUSED_RELEASE_TIMEOUT=300s # 5 minutes
+
+      # Production connection management
+      - CONNECTION_MIN_TERMINATION_DEADLINE=10s
+      - CONNECTION_TERMINATION_DEADLINE=60s
+      - TERMINATION_GRACE_PERIOD_SECONDS=90
+
+      # Production security (typically injected by Kubernetes)
+      - CA_ADDRESS=${CA_ADDRESS}
+      - TRUST_DOMAIN=${TRUST_DOMAIN:-cluster.local}
+      - SERVICE_ACCOUNT=${SERVICE_ACCOUNT:-agentgateway}
+      - CLUSTER_ID=${CLUSTER_ID:-production}
+      - AUTH_TOKEN=${AUTH_TOKEN_PATH:-/var/run/secrets/tokens/istio-token}
+
+      # xDS for production dynamic config
+      - XDS_ADDRESS=${XDS_ADDRESS}
+      - NAMESPACE=${NAMESPACE}
+      - GATEWAY=${GATEWAY:-agentgateway}
+
+      # Kubernetes metadata (typically auto-injected)
+      - INSTANCE_IP=${POD_IP}
+      - POD_NAME=${POD_NAME}
+      - POD_NAMESPACE=${POD_NAMESPACE}
+      - NODE_NAME=${NODE_NAME}
+
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: "4.0"
+        reservations:
+          memory: 1G
+          cpus: "2.0"
+
+    # Production security
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:rw,size=200M,noexec,nosuid,nodev
+
+  # Production monitoring stack would typically be external
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.94.0
+    environment:
+      - OTEL_RESOURCE_ATTRIBUTES=service.name=otel-collector,service.version=0.94.0,deployment.environment=production
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: "1.0"

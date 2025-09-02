@@ -1,6 +1,7 @@
-target
-.idea
+/target
 .vscode
+.idea
 .DS_Store
-manifests
-examples
+.venv
+.serena
+.claude

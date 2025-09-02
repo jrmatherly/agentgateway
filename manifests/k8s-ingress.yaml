@@ -1,0 +1,78 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: agentgateway
+  namespace: agentgateway
+  labels:
+    app.kubernetes.io/name: agentgateway
+    app.kubernetes.io/component: gateway
+    app.kubernetes.io/part-of: agentgateway-platform
+  annotations:
+    # NGINX Ingress Controller annotations
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+
+    # Rate limiting
+    nginx.ingress.kubernetes.io/rate-limit: "100"
+    nginx.ingress.kubernetes.io/rate-limit-window: "1m"
+
+    # Security headers
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      add_header X-Content-Type-Options nosniff;
+      add_header X-Frame-Options DENY;
+      add_header X-XSS-Protection "1; mode=block";
+      add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+      add_header Referrer-Policy "strict-origin-when-cross-origin";
+
+    # Certificate management (adjust for your cert-manager setup)
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    cert-manager.io/acme-challenge-type: "http01"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - agentgateway.example.com
+      secretName: agentgateway-tls
+  rules:
+    - host: agentgateway.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: agentgateway
+                port:
+                  number: 3000
+
+---
+# Ingress for metrics (internal only)
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: agentgateway-metrics
+  namespace: agentgateway
+  labels:
+    app.kubernetes.io/name: agentgateway
+    app.kubernetes.io/component: metrics
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: basic-auth
+    nginx.ingress.kubernetes.io/auth-realm: "Metrics Access"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: metrics.agentgateway.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: agentgateway
+                port:
+                  number: 8080

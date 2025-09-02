@@ -1,0 +1,56 @@
+version: "3.8"
+
+services:
+  agentgateway:
+    build:
+      target: builder # Use builder stage for development with debug tools
+      args:
+        - PROFILE=dev
+    environment:
+      - RUST_LOG=debug
+      - RUST_BACKTRACE=1
+    volumes:
+      - .:/app/src:ro # Mount source for hot reload (if supported)
+      - ./examples:/app/examples:ro
+      - target_cache:/app/target # Cache target directory
+    ports:
+      - "3000:3000"
+      - "8080:8080"
+      - "9000:9000" # Debug port
+    command: ["/app/target/debug/agentgateway", "-f", "/app/config.yaml"]
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: "2.0"
+
+  # Mock MCP server for testing
+  mcp-mock:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./ui:/app
+    command: ["npx", "@modelcontextprotocol/server-everything"]
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=development
+    profiles:
+      - dev
+      - testing
+
+  # Development tools container
+  dev-tools:
+    image: rust:1.89.0-slim-bookworm
+    working_dir: /app
+    volumes:
+      - .:/app
+      - target_cache:/app/target
+      - cargo_registry:/usr/local/cargo/registry
+    command: ["tail", "-f", "/dev/null"]
+    profiles:
+      - dev
+
+volumes:
+  target_cache:
+  cargo_registry:

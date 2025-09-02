@@ -1,0 +1,196 @@
+# =============================================================================
+# Rust Build Artifacts
+# =============================================================================
+*/target/*                         # Cargo build output
+**/*.rs.bk                       # Rustfmt backup files
+**/Cargo.lock                    # Lock file (keep for applications, ignore for libraries)
+
+# Rust analyzer cache
+/.rust-analyzer/
+**/rust-analyzer.log
+
+# Incremental compilation
+**/incremental/
+
+# =============================================================================
+# Node.js & Frontend
+# =============================================================================
+**/node_modules/                 # npm/yarn dependencies
+**/npm-debug.log*               # npm debug logs
+**/yarn-debug.log*              # yarn debug logs
+**/yarn-error.log*              # yarn error logs
+**/lerna-debug.log*             # lerna debug logs
+**/.pnpm-debug.log*             # pnpm debug logs
+
+# Build artifacts
+**/dist/                        # Distribution builds
+**/build/                       # Build outputs
+**/.next/                       # Next.js build output
+**/out/                         # Next.js export output
+
+# Cache and temporary files
+**/.npm/                        # npm cache directory
+**/.yarn/cache/                 # yarn cache
+**/.yarn/unplugged/             # yarn PnP
+**/.yarn/build-state.yml        # yarn build state
+**/.yarn/install-state.gz       # yarn install state
+**/.pnp.*                       # yarn Plug'n'Play
+**/.cache/                      # Generic cache directories
+
+# =============================================================================
+# Development Environments & IDEs
+# =============================================================================
+.vscode/                        # VS Code settings
+!.vscode/extensions.json        # Keep recommended extensions
+.idea/                          # IntelliJ IDEA
+*.swp                           # Vim swap files
+*.swo                           # Vim swap files
+*~                              # Vim backup files
+.vim/                           # Vim configuration
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# =============================================================================
+# Operating System Files
+# =============================================================================
+.DS_Store                       # macOS directory metadata
+.DS_Store?                      # macOS alternative
+._*                             # macOS resource forks
+Thumbs.db                       # Windows thumbnail cache
+Thumbs.db:encryptable          # Windows encrypted thumbnails
+ehthumbs.db                    # Windows Explorer thumbnails
+ehthumbs_vista.db              # Windows Vista thumbnails
+Desktop.ini                    # Windows desktop settings
+$RECYCLE.BIN/                  # Windows recycle bin
+
+# =============================================================================
+# Security & Credentials
+# =============================================================================
+.env                           # Environment variables
+.env.local                     # Local environment overrides
+.env.development.local         # Development environment
+.env.test.local               # Test environment
+.env.production.local         # Production environment
+.env.*                        # All environment files
+
+# Certificates and keys
+*.pem                         # PEM certificates
+*.key                         # Private keys
+*.p12                         # PKCS#12 files
+*.pfx                         # Personal Information Exchange
+*.jks                         # Java keystore
+*.keystore                    # Keystore files
+
+# Secrets and credentials
+secrets/                      # Secrets directory
+.secrets/                     # Hidden secrets directory
+credentials/                  # Credentials directory
+.credentials/                 # Hidden credentials directory
+auth.json                     # Authentication files
+service-account.json          # Service account keys
+
+# =============================================================================
+# Testing & Coverage
+# =============================================================================
+coverage/                     # Coverage reports
+*.lcov                        # Coverage data
+.nyc_output/                  # NYC coverage tool
+junit.xml                     # JUnit test results
+coverage.xml                  # Coverage XML reports
+
+# Test artifacts
+test-results/                 # Test output directory
+playwright-report/            # Playwright test reports
+.test-results/               # Hidden test results
+
+# Benchmarking
+criterion/                    # Rust criterion benchmarks
+flamegraph.svg               # Flame graphs
+perf.data*                   # Perf profiling data
+
+# =============================================================================
+# Logs & Temporary Files
+# =============================================================================
+*.log                         # All log files
+logs/                         # Log directories
+*.tmp                         # Temporary files
+*.temp                        # Temporary files
+*.cache                       # Cache files
+*.pid                         # Process ID files
+*.seed                        # Random seed files
+*.tgz                         # Compressed archives
+*.tar.gz                      # Compressed archives
+
+# Runtime directories
+tmp/                          # Temporary directory
+temp/                         # Temporary directory
+.tmp/                         # Hidden temp directory
+
+# =============================================================================
+# Documentation & Generated Files
+# =============================================================================
+/doc/                         # Generated documentation
+/docs/book/                   # mdBook output (if using mdBook)
+**/.docusaurus/              # Docusaurus cache
+**/static/generated/         # Generated static assets
+
+# =============================================================================
+# Package Managers & Dependencies
+# =============================================================================
+.cargo/                       # Cargo cache (global)
+.rustup/                      # Rustup toolchain cache
+
+# Python (if any Python tooling is used)
+.venv/                       # Python virtual environment
+.python-version              # pyenv version file
+__pycache__/                 # Python cache
+*.py[cod]                    # Python compiled files
+*$py.class                   # Python compiled classes
+
+# =============================================================================
+# CI/CD & Deployment
+# =============================================================================
+.github/                      # Keep GitHub workflows but ignore sensitive configs
+!.github/workflows/           # Keep GitHub Actions workflows
+!.github/dependabot.yml      # Keep Dependabot config
+.gitlab-ci-local/            # GitLab CI local cache
+.deployment/                 # Deployment artifacts
+.terraform/                  # Terraform state
+terraform.tfstate*           # Terraform state files
+.terraformrc                 # Terraform configuration
+
+# Docker
+.docker/                     # Docker build cache
+docker-compose.override.yml  # Local docker-compose overrides (keep example)
+
+# =============================================================================
+# Project Specific
+# =============================================================================
+.serena/                    # Serena MCP server cache
+.serena/**                  # All Serena files
+.claude/                    # Claude Code cache
+.claude/**                  # All Claude files
+.agentgateway/              # Project-specific cache
+target/                     # Rust build output (ensure not tracked)
+target/**                   # All target files
+
+# Monitoring and observability
+/grafana-data/              # Grafana data directory
+/prometheus-data/           # Prometheus data directory
+/jaeger-data/               # Jaeger data directory
+
+# Development databases
+*.db                        # SQLite databases
+*.sqlite                    # SQLite databases
+*.sqlite3                   # SQLite databases
+
+# =============================================================================
+# Workspace & Multi-crate Specific
+# =============================================================================

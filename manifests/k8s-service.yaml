@@ -1,0 +1,80 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: agentgateway
+  namespace: agentgateway
+  labels:
+    app.kubernetes.io/name: agentgateway
+    app.kubernetes.io/component: gateway
+    app.kubernetes.io/part-of: agentgateway-platform
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb" # For AWS
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "tcp"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 3000
+      targetPort: http
+      protocol: TCP
+    - name: metrics
+      port: 8080
+      targetPort: metrics
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: agentgateway
+    app.kubernetes.io/component: gateway
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: agentgateway-headless
+  namespace: agentgateway
+  labels:
+    app.kubernetes.io/name: agentgateway
+    app.kubernetes.io/component: gateway
+    app.kubernetes.io/part-of: agentgateway-platform
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - name: http
+      port: 3000
+      targetPort: http
+      protocol: TCP
+    - name: metrics
+      port: 8080
+      targetPort: metrics
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: agentgateway
+    app.kubernetes.io/component: gateway
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: otel-collector
+  namespace: agentgateway
+  labels:
+    app.kubernetes.io/name: otel-collector
+    app.kubernetes.io/component: collector
+spec:
+  type: ClusterIP
+  ports:
+    - name: otlp-grpc
+      port: 4317
+      targetPort: 4317
+      protocol: TCP
+    - name: otlp-http
+      port: 4318
+      targetPort: 4318
+      protocol: TCP
+    - name: metrics
+      port: 8888
+      targetPort: 8888
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: otel-collector
+    app.kubernetes.io/component: collector

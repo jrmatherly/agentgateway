@@ -1,0 +1,98 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: agentgateway
+  namespace: agentgateway
+  labels:
+    app.kubernetes.io/name: agentgateway
+    app.kubernetes.io/component: gateway
+    app.kubernetes.io/part-of: agentgateway-platform
+automountServiceAccountToken: true
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: agentgateway
+  labels:
+    app.kubernetes.io/name: agentgateway
+    app.kubernetes.io/component: gateway
+    app.kubernetes.io/part-of: agentgateway-platform
+rules:
+  # Minimal permissions for observability
+  - apiGroups: [""]
+    resources: ["pods", "services", "endpoints"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "replicasets"]
+    verbs: ["get", "list", "watch"]
+  # For dynamic configuration (if xDS is used)
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["ingresses"]
+    verbs: ["get", "list", "watch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: agentgateway
+  labels:
+    app.kubernetes.io/name: agentgateway
+    app.kubernetes.io/component: gateway
+    app.kubernetes.io/part-of: agentgateway-platform
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: agentgateway
+subjects:
+  - kind: ServiceAccount
+    name: agentgateway
+    namespace: agentgateway
+
+---
+# ServiceAccount for OpenTelemetry Collector
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: otel-collector
+  namespace: agentgateway
+  labels:
+    app.kubernetes.io/name: otel-collector
+    app.kubernetes.io/component: collector
+automountServiceAccountToken: true
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: otel-collector
+  labels:
+    app.kubernetes.io/name: otel-collector
+    app.kubernetes.io/component: collector
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "nodes", "services", "endpoints"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "replicasets"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["nodes/stats", "nodes/proxy"]
+    verbs: ["get"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: otel-collector
+  labels:
+    app.kubernetes.io/name: otel-collector
+    app.kubernetes.io/component: collector
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: otel-collector
+subjects:
+  - kind: ServiceAccount
+    name: otel-collector
+    namespace: agentgateway

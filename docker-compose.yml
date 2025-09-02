@@ -1,0 +1,231 @@
+version: "3.8"
+
+services:
+  #==================================================#
+  #               Agentgateway                       #
+  #==================================================#
+  agentgateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+      args:
+        - BUILDER=base
+        - PROFILE=release
+    ports:
+      - "3000:3000"
+      - "8080:8080" # Admin/metrics port
+    environment:
+      # Logging & Debugging
+      - RUST_LOG=info
+      - RUST_BACKTRACE=0
+
+      # Observability
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - PROMETHEUS_ENDPOINT=0.0.0.0:8080
+      - OTLP_PROTOCOL=grpc
+      - OTLP_HEADERS={"service":"agentgateway","environment":"docker"}
+
+      # Performance Tuning
+      - WORKER_THREADS=75% # Use 75% of available CPU cores
+      - THREADING_MODE=default
+
+      # Network Configuration
+      - IPV6_ENABLED=true
+      - STATS_ADDR=0.0.0.0:8080
+      - READINESS_ADDR=0.0.0.0:8081
+
+      # HTTP/2 Optimization
+      - HTTP2_STREAM_WINDOW_SIZE=8388608 # 8MB
+      - HTTP2_CONNECTION_WINDOW_SIZE=33554432 # 32MB
+      - POOL_MAX_STREAMS_PER_CONNECTION=200
+
+      # Connection Management
+      - CONNECTION_MIN_TERMINATION_DEADLINE=5s
+      - CONNECTION_TERMINATION_DEADLINE=30s
+
+      # Kubernetes-style metadata (for local development)
+      - INSTANCE_IP=172.20.0.10
+      - POD_NAME=agentgateway-local
+      - POD_NAMESPACE=default
+      - NODE_NAME=docker-desktop
+    volumes:
+      - ./examples/basic/config.yaml:/app/config.yaml:ro
+      # Mount examples directory for easy config switching
+      - ./examples:/app/examples:ro
+    command: ["/app/agentgateway", "-f", "/app/config.yaml"]
+    depends_on:
+      - otel-collector
+      - prometheus
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "/app/agentgateway",
+          "--validate-only",
+          "-f",
+          "/app/config.yaml",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: "1.0"
+        reservations:
+          memory: 256M
+          cpus: "0.5"
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:rw,size=100M
+
+  #==================================================#
+  #               PostgreSQL                         #
+  #==================================================#
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: agentgateway
+      POSTGRES_USER: agentgateway
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./manifests/postgres-init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agentgateway"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  #==================================================#
+  #               Redis Cache                        #
+  #==================================================#
+  redis:
+    image: redis:8-alpine
+    command: >
+      redis-server
+      --requirepass ${REDIS_PASSWORD}
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+      --appendonly yes
+      --tcp-keepalive 300
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    environment:
+      - "TZ=${TZ}"
+      - "REDISCLI_AUTH=${REDIS_PASSWORD}"
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  #==================================================#
+  #               OpenTelemetry Collector            #
+  #==================================================#
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.94.0
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./manifests/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317" # OTLP gRPC receiver
+      - "4318:4318" # OTLP HTTP receiver
+      - "8888:8888" # Prometheus metrics
+    depends_on:
+      - prometheus
+      - jaeger
+    restart: unless-stopped
+
+  #==================================================#
+  #               Prometheus                         #
+  #==================================================#
+  prometheus:
+    image: prom/prometheus:v2.48.1
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./manifests/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.console.libraries=/etc/prometheus/console_libraries"
+      - "--web.console.templates=/etc/prometheus/consoles"
+      - "--storage.tsdb.retention.time=200h"
+      - "--web.enable-lifecycle"
+    restart: unless-stopped
+
+  #==================================================#
+  #               Grafana                            #
+  #==================================================#
+  grafana:
+    image: grafana/grafana:10.2.3
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./manifests/grafana.json:/var/lib/grafana/dashboards/agentgateway.json
+      - ./manifests/grafana-provisioning:/etc/grafana/provisioning
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+  #==================================================#
+  #               Jaeger                             #
+  #==================================================#
+  jaeger:
+    image: jaegertracing/all-in-one:1.53
+    ports:
+      - "14268:14268" # jaeger-collector HTTP
+      - "16686:16686" # jaeger-ui
+      - "14250:14250" # jaeger-collector gRPC
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+    restart: unless-stopped
+
+  #==================================================#
+  #               UI Development                     #
+  #==================================================#
+  ui-dev:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile.dev
+    ports:
+      - "15000:3000"
+    volumes:
+      - ./ui:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+    restart: unless-stopped
+    profiles:
+      - dev
+
+volumes:
+  postgres_data:
+  redis_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  default:
+    name: agentgateway-network
+    driver: bridge

@@ -1,0 +1,31 @@
+# Override file for environment-specific configurations
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.override.yml up
+
+version: "3.8"
+
+services:
+  agentgateway:
+    environment:
+      # Development overrides
+      - RUST_LOG=debug
+      - RUST_BACKTRACE=1
+
+      # Development performance settings
+      - WORKER_THREADS=4 # Fixed threads for development
+      - HTTP2_STREAM_WINDOW_SIZE=4194304 # 4MB for development
+
+      # Enable xDS for testing dynamic configuration
+      # - XDS_ADDRESS=http://control-plane:15010
+      # - NAMESPACE=development
+      # - GATEWAY=agentgateway-dev
+
+      # Security testing (uncomment for CA integration)
+      # - CA_ADDRESS=http://istiod:15012
+      # - TRUST_DOMAIN=cluster.local
+      # - SERVICE_ACCOUNT=agentgateway
+      # - CLUSTER_ID=development
+
+      # Custom OTLP headers for development
+      - OTLP_HEADERS=service=agentgateway-dev,environment=development,version=latest
+# Production environment file (docker-compose.prod.yml)
+# This file shows production-optimized environment variables

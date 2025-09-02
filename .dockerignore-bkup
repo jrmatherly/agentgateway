@@ -1,0 +1,281 @@
+# =============================================================================
+# Docker Build Context Optimization for Agentgateway
+# =============================================================================
+# This file optimizes Docker build performance and security by excluding
+# unnecessary files from the build context sent to the Docker daemon.
+
+# =============================================================================
+# Build Artifacts & Compilation Output  
+# =============================================================================
+# Exclude all build outputs - Docker will generate fresh builds
+target/                          # Rust build artifacts
+**/target/                       # Workspace target directories
+**/debug/                        # Debug build outputs  
+**/release/                      # Release build outputs
+**/*.rlib                        # Rust library files
+**/*.rmeta                       # Rust metadata files
+**/*.d                           # Dependency files
+
+# Node.js build artifacts
+ui/node_modules/                 # npm dependencies (will be installed in container)
+**/node_modules/                 # All Node.js dependencies
+ui/.next/                        # Next.js build cache
+ui/out/                          # Next.js static exports
+ui/dist/                         # Distribution builds
+**/build/                        # Generic build directories
+**/coverage/                     # Test coverage reports
+
+# =============================================================================
+# Cache & Temporary Files
+# =============================================================================
+# Exclude all caches - containers should have clean build environment
+.cargo/                          # Cargo registry cache
+**/.cargo/                       # Local cargo caches
+.rust-analyzer/                  # Rust analyzer cache
+**/.cache/                       # Generic cache directories
+**/.npm/                         # npm cache
+**/.yarn/                        # Yarn cache
+**/.pnpm-store/                  # pnpm cache
+
+# Temporary files
+*.tmp                            # Temporary files
+*.temp                           # Temporary files  
+*.cache                          # Cache files
+*.log                            # Log files (generated fresh in container)
+logs/                            # Log directories
+temp/                            # Temporary directories
+tmp/                             # Temporary directories
+
+# =============================================================================
+# Development Environment Files
+# =============================================================================
+# IDE and editor configurations
+.idea/                           # IntelliJ IDEA
+.vscode/                         # VS Code (but keep settings for container dev)
+!.vscode/devcontainer.json       # Keep dev container config
+!.vscode/settings.json           # Keep container-relevant settings
+.devcontainer.json               # Dev container config
+*.swp                            # Vim swap files
+*.swo                            # Vim swap files
+*~                               # Editor backup files
+
+# Development tools
+.editorconfig                    # Editor configuration (not needed in runtime)
+.prettier*                       # Prettier configuration
+.eslint*                         # ESLint configuration (used at build time only)
+
+# =============================================================================
+# Operating System Files
+# =============================================================================
+.DS_Store                        # macOS directory metadata
+.DS_Store?                       # macOS metadata variants
+._*                              # macOS resource forks
+Thumbs.db                        # Windows thumbnail cache
+Thumbs.db:encryptable            # Windows encrypted thumbnails
+Desktop.ini                      # Windows desktop settings
+$RECYCLE.BIN/                    # Windows recycle bin
+
+# =============================================================================
+# Version Control & CI/CD
+# =============================================================================
+.git/                            # Git repository data
+.gitignore                       # Git ignore rules
+.gitattributes                   # Git attributes
+.gitmodules                      # Git submodules
+
+# GitHub and CI/CD
+.github/                         # GitHub workflows and configurations
+!.github/workflows/docker.yml    # Keep Docker-specific workflows if needed
+.gitlab-ci.yml                   # GitLab CI configuration
+.travis.yml                      # Travis CI configuration
+.circleci/                       # CircleCI configuration
+.jenkinsfile                     # Jenkins pipeline
+azure-pipelines.yml              # Azure DevOps pipelines
+
+# =============================================================================
+# Documentation (Excluded from Runtime Containers)
+# =============================================================================
+# Keep only essential runtime documentation
+docs/                           # Documentation directory
+*.md                            # Markdown files
+README*                         # README files
+CHANGELOG*                      # Changelog files
+CONTRIBUTING*                   # Contributing guidelines
+CODE_OF_CONDUCT*                # Code of conduct
+LICENSE*                        # License files (except production license)
+!LICENSE                        # Keep main license for attribution
+AUTHORS*                        # Author information
+CREDITS*                        # Credits
+MAINTAINERS*                    # Maintainer information
+
+# Generated documentation
+/doc/                           # Rust generated docs
+**/book/                        # mdBook outputs
+site/                           # Documentation site
+
+# =============================================================================
+# Configuration Files (Development Only)
+# =============================================================================
+# Build and development configuration files not needed in container runtime
+deny.toml                       # Rust deny configuration
+rustfmt.toml                    # Rust formatting configuration
+.taplo.toml                     # TOML formatter configuration
+rust-toolchain.toml             # Rust toolchain specification (handled by Dockerfile)
+clippy.toml                     # Clippy linting configuration
+
+# Package manager configurations
+# .npmrc                          # npm configuration
+# .yarnrc*                        # Yarn configuration  
+# .pnpmrc                         # pnpm configuration
+# package-lock.json               # npm lock file (generated in container)
+# yarn.lock                       # Yarn lock file (generated in container)
+# pnpm-lock.yaml                  # pnpm lock file (generated in container)
+
+# =============================================================================
+# Examples & Test Data (Excluded from Production)
+# =============================================================================
+examples/                       # Example configurations
+test-data/                      # Test datasets
+fixtures/                       # Test fixtures
+benchmarks/                     # Benchmark code and data
+**/tests/                       # Test directories (exclude from runtime)
+
+# =============================================================================
+# Security Sensitive Files (Critical Exclusion)
+# =============================================================================
+# Environment and secrets
+.env                            # Environment variables
+.env.*                          # All environment files
+.envrc                          # direnv configuration
+
+# Certificates and cryptographic material
+*.key                           # Private keys
+*.pem                           # PEM certificates
+*.p12                           # PKCS#12 certificates
+*.pfx                           # Personal Information Exchange files
+*.jks                           # Java keystores
+*.keystore                      # Keystore files
+*.crt                           # Certificate files
+*.csr                           # Certificate signing requests
+
+# Secrets and credentials
+secrets/                        # Secrets directory
+.secrets/                       # Hidden secrets
+credentials/                    # Credentials directory
+.credentials/                   # Hidden credentials
+auth.json                       # Authentication configuration
+service-account*.json           # Service account keys
+*.token                         # Token files
+.ssh/                           # SSH keys and configuration
+
+# =============================================================================
+# Testing & Quality Assurance
+# =============================================================================
+# Test outputs and reports
+test-results/                   # Test results directory
+.test-results/                  # Hidden test results
+junit.xml                       # JUnit test reports
+coverage.xml                    # Coverage XML reports
+*.lcov                          # Coverage LCOV format
+.nyc_output/                    # NYC coverage output
+htmlcov/                        # HTML coverage reports
+.coverage                       # Python coverage files
+
+# Playwright specific
+playwright-report/              # Playwright test reports
+test-results/                   # Playwright test artifacts
+.playwright/                    # Playwright cache
+
+# Benchmarking and profiling
+criterion/                      # Rust criterion benchmarks
+flamegraph.svg                  # Performance flame graphs
+perf.data*                      # Linux perf profiling data
+*.prof                          # Profile data files
+
+# =============================================================================
+# Container & Deployment Artifacts
+# =============================================================================
+# Docker and containerization
+# docker-compose*.yml             # Docker Compose files
+# !docker-compose.yml             # Keep main compose file for reference
+# Dockerfile*                     # Other Dockerfiles
+# !Dockerfile                     # Keep main Dockerfile
+# .dockerignore                   # This file itself
+# .docker/                        # Docker build cache
+
+# Kubernetes and orchestration
+manifests/                      # Kubernetes manifests (for development)
+k8s/                            # Kubernetes configurations
+helm/                           # Helm charts
+kustomization.yaml              # Kustomize configurations
+skaffold.yaml                   # Skaffold configuration
+
+# Terraform and infrastructure
+.terraform/                     # Terraform state and cache
+*.tfstate*                      # Terraform state files
+.terraformrc                    # Terraform configuration
+*.tfplan                        # Terraform execution plans
+
+# =============================================================================
+# Runtime Data Directories (Development)
+# =============================================================================
+# Data directories that shouldn't be in container images
+data/                           # Application data
+volumes/                        # Docker volume mounts
+.data/                          # Hidden data directories
+
+# Database files
+*.db                            # SQLite databases
+*.sqlite*                       # SQLite database files
+redis-data/                     # Redis data
+postgres-data/                  # PostgreSQL data
+grafana-data/                   # Grafana data
+prometheus-data/                # Prometheus data
+jaeger-data/                    # Jaeger data
+
+# =============================================================================
+# Tool-Specific Exclusions
+# =============================================================================
+# Rust ecosystem
+*.rs.bk                         # rustfmt backup files
+.cargo-ok                       # Cargo build success marker
+**/.rust-analyzer/              # Rust analyzer cache directories
+rust-project.json               # Rust project configuration
+
+# Node.js ecosystem
+.pnp.*                          # Yarn Plug'n'Play
+.yarn/                          # Yarn configuration and cache
+lerna-debug.log*                # Lerna debug logs
+.eslintcache                    # ESLint cache
+
+# Python (if any Python tooling)
+__pycache__/                    # Python bytecode cache
+*.py[cod]                       # Python compiled files
+.pytest_cache/                  # pytest cache
+.mypy_cache/                    # mypy type checker cache
+
+# =============================================================================
+# Large Binary Files & Assets (Optimization)
+# =============================================================================
+# Exclude large files that slow down build context transfer
+*.iso                           # ISO images
+*.dmg                           # macOS disk images
+*.pkg                           # Package files
+*.deb                           # Debian packages
+*.rpm                           # RPM packages
+*.tar.gz                        # Compressed archives (unless needed)
+*.zip                           # ZIP archives
+*.rar                           # RAR archives
+
+# Media files (usually not needed in runtime containers)
+*.mp4                           # Video files
+*.avi                           # Video files
+*.mkv                           # Video files
+*.mov                           # Video files
+*.wmv                           # Video files
+
+# Large image files (keep only essential ones)
+*.psd                           # Photoshop files
+*.ai                            # Adobe Illustrator files
+*.sketch                        # Sketch files
+*.fig                           # Figma files

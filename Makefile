@@ -109,3 +109,61 @@ validate: run-validation-deps $(CONFIG_FILES) stop-validation-deps
 .PHONY: $(CONFIG_FILES)
 $(CONFIG_FILES):
 	@cargo run -- -f $@ --validate-only
+
+# Container operations
+.PHONY: docker-build-enhanced
+docker-build-enhanced:
+	$(DOCKER_BUILDER) build $(DOCKER_BUILD_ARGS) \
+		--build-arg VERSION=$(VERSION) \
+		--build-arg BUILD_DATE=$(shell date -u +%Y-%m-%dT%H:%M:%SZ) \
+		--build-arg VCS_REF=$(shell git rev-parse HEAD) \
+		-t $(IMAGE_FULL_NAME) . --progress=plain
+
+.PHONY: docker-scan
+docker-scan:
+	docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+		aquasec/trivy image $(IMAGE_FULL_NAME)
+
+.PHONY: docker-dev
+docker-dev:
+	docker-compose --profile dev up -d
+
+.PHONY: docker-dev-down
+docker-dev-down:
+	docker-compose --profile dev down -v
+
+.PHONY: docker-prod
+docker-prod:
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+.PHONY: docker-dev-override
+docker-dev-override:
+	docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+
+.PHONY: docker-logs
+docker-logs:
+	docker-compose logs -f agentgateway
+
+.PHONY: k8s-deploy
+k8s-deploy:
+	kubectl apply -f manifests/k8s-namespace.yaml
+	kubectl apply -f manifests/k8s-rbac.yaml
+	kubectl apply -f manifests/k8s-configmap.yaml
+	kubectl apply -f manifests/k8s-deployment.yaml
+	kubectl apply -f manifests/k8s-service.yaml
+	kubectl apply -f manifests/k8s-hpa.yaml
+	kubectl apply -f manifests/k8s-monitoring.yaml
+
+.PHONY: k8s-status
+k8s-status:
+	kubectl get pods -n agentgateway
+	kubectl get svc -n agentgateway
+	kubectl get hpa -n agentgateway
+
+.PHONY: k8s-logs
+k8s-logs:
+	kubectl logs -f deployment/agentgateway -n agentgateway
+
+.PHONY: k8s-cleanup
+k8s-cleanup:
+	kubectl delete namespace agentgateway
