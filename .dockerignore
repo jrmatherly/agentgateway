@@ -1,7 +1,57 @@
-/target
-.vscode
-.idea
+# Git
+.git
+.gitignore
+.gitmodules
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Build artifacts
+target/
+node_modules/
+ui/node_modules/
+ui/.next/
+ui/dist/
+ui/build/
+ui/out/
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 .DS_Store
-.venv
-.serena
-.claude
+
+# Development tools
+.venv/
+.serena/
+.claude/
+
+# Documentation
+*.md
+docs/
+README*
+LICENSE*
+CHANGELOG*
+
+# Logs
+*.log
+*.tmp
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Cache
+.cache/
+coverage/
+
+# OS
+.DS_Store
+Thumbs.db

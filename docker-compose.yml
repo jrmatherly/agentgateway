@@ -15,6 +15,7 @@ services:
     ports:
       - "3000:3000"
       - "8080:8080" # Admin/metrics port
+      - "15000:15000" # UI admin port
     environment:
       # Logging & Debugging
       - RUST_LOG=info
@@ -31,9 +32,10 @@ services:
       - THREADING_MODE=default
 
       # Network Configuration
-      - IPV6_ENABLED=true
+      - IPV6_ENABLED=false
       - STATS_ADDR=0.0.0.0:8080
       - READINESS_ADDR=0.0.0.0:8081
+      - ADMIN_ADDR=0.0.0.0:15000
 
       # HTTP/2 Optimization
       - HTTP2_STREAM_WINDOW_SIZE=8388608 # 8MB
@@ -195,8 +197,8 @@ services:
       - "14268:14268" # jaeger-collector HTTP
       - "16686:16686" # jaeger-ui
       - "14250:14250" # jaeger-collector gRPC
-      - "4317:4317"   # OTLP gRPC receiver
-      - "4318:4318"   # OTLP HTTP receiver
+      - "4317:4317" # OTLP gRPC receiver
+      - "4318:4318" # OTLP HTTP receiver
     environment:
       - COLLECTOR_OTLP_ENABLED=true
     restart: unless-stopped
@@ -209,7 +211,7 @@ services:
       context: ./ui
       dockerfile: Dockerfile.dev
     ports:
-      - "15000:3000"
+      - "15001:3000"
     volumes:
       - ./ui:/app
       - /app/node_modules
@@ -217,6 +219,9 @@ services:
     environment:
       - NODE_ENV=development
       - NEXT_TELEMETRY_DISABLED=1
+      - NEXT_PUBLIC_API_URL=http://localhost:15000
+    depends_on:
+      - agentgateway
     restart: unless-stopped
     profiles:
       - dev

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
-const API_URL = process.env.NODE_ENV === "production" ? "" : "http://localhost:15000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 
+  (process.env.NODE_ENV === "production" ? "" : "http://localhost:15002");
 
 type XdsSubscriber = (val: boolean) => void;
 const xdsSubscribers: XdsSubscriber[] = [];
