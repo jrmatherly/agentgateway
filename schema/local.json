@@ -7,118 +7,64 @@
       "type": "object",
       "properties": {
         "enableIpv6": {
-          "type": [
-            "boolean",
-            "null"
-          ]
+          "type": ["boolean", "null"]
         },
         "localXdsPath": {
           "description": "Local XDS path. If not specified, the current configuration file will be used.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "caAddress": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "xdsAddress": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "namespace": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "gateway": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "trustDomain": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "serviceAccount": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "clusterId": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "network": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "adminAddr": {
           "description": "Admin UI address in the format \"ip:port\"",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "statsAddr": {
           "description": "Stats/metrics server address in the format \"ip:port\"",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "readinessAddr": {
           "description": "Readiness probe server address in the format \"ip:port\"",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "authToken": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "connectionTerminationDeadline": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": ["string", "null"],
           "default": null
         },
         "connectionMinTerminationDeadline": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": ["string", "null"],
           "default": null
         },
         "workerThreads": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "tracing": {
-          "type": [
-            "object",
-            "null"
-          ],
+          "type": ["object", "null"],
           "properties": {
             "otlpEndpoint": {
               "type": "string"
@@ -132,17 +78,11 @@
             },
             "otlpProtocol": {
               "type": "string",
-              "enum": [
-                "grpc",
-                "http"
-              ],
+              "enum": ["grpc", "http"],
               "default": "grpc"
             },
             "fields": {
-              "type": [
-                "object",
-                "null"
-              ],
+              "type": ["object", "null"],
               "properties": {
                 "remove": {
                   "type": "array",
@@ -163,45 +103,24 @@
             },
             "randomSampling": {
               "description": "Expression to determine the amount of *random sampling*.\nRandom sampling will initiate a new trace span if the incoming request does not have a trace already.\nThis should evaluate to either a float between 0.0-1.0 (0-100%) or true/false.\nThis defaults to 'false'.",
-              "type": [
-                "string",
-                "number",
-                "boolean",
-                "null"
-              ]
+              "type": ["string", "number", "boolean", "null"]
             },
             "clientSampling": {
               "description": "Expression to determine the amount of *client sampling*.\nClient sampling determines whether to initiate a new trace span if the incoming request does have a trace already.\nThis should evaluate to either a float between 0.0-1.0 (0-100%) or true/false.\nThis defaults to 'true'.",
-              "type": [
-                "string",
-                "number",
-                "boolean",
-                "null"
-              ]
+              "type": ["string", "number", "boolean", "null"]
             }
           },
           "additionalProperties": false,
-          "required": [
-            "otlpEndpoint"
-          ]
+          "required": ["otlpEndpoint"]
         },
         "logging": {
-          "type": [
-            "object",
-            "null"
-          ],
+          "type": ["object", "null"],
           "properties": {
             "filter": {
-              "type": [
-                "string",
-                "null"
-              ]
+              "type": ["string", "null"]
             },
             "fields": {
-              "type": [
-                "object",
-                "null"
-              ],
+              "type": ["object", "null"],
               "properties": {
                 "remove": {
                   "type": "array",
@@ -224,16 +143,10 @@
           "additionalProperties": false
         },
         "metrics": {
-          "type": [
-            "object",
-            "null"
-          ],
+          "type": ["object", "null"],
           "properties": {
             "fields": {
-              "type": [
-                "object",
-                "null"
-              ],
+              "type": ["object", "null"],
               "properties": {
                 "add": {
                   "type": "object",
@@ -249,49 +162,31 @@
           "additionalProperties": false
         },
         "http2": {
-          "type": [
-            "object",
-            "null"
-          ],
+          "type": ["object", "null"],
           "properties": {
             "windowSize": {
-              "type": [
-                "integer",
-                "null"
-              ],
+              "type": ["integer", "null"],
               "format": "uint32",
               "minimum": 0
             },
             "connectionWindowSize": {
-              "type": [
-                "integer",
-                "null"
-              ],
+              "type": ["integer", "null"],
               "format": "uint32",
               "minimum": 0
             },
             "frameSize": {
-              "type": [
-                "integer",
-                "null"
-              ],
+              "type": ["integer", "null"],
               "format": "uint32",
               "minimum": 0
             },
             "poolMaxStreamsPerConn": {
-              "type": [
-                "integer",
-                "null"
-              ],
+              "type": ["integer", "null"],
               "format": "uint16",
               "minimum": 0,
               "maximum": 65535
             },
             "poolUnusedReleaseTimeout": {
-              "type": [
-                "string",
-                "null"
-              ]
+              "type": ["string", "null"]
             }
           },
           "additionalProperties": false
@@ -317,39 +212,21 @@
               "type": "object",
               "properties": {
                 "name": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
+                  "type": ["string", "null"]
                 },
                 "gatewayName": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
+                  "type": ["string", "null"]
                 },
                 "hostname": {
                   "description": "Can be a wildcard",
-                  "type": [
-                    "string",
-                    "null"
-                  ]
+                  "type": ["string", "null"]
                 },
                 "protocol": {
                   "type": "string",
-                  "enum": [
-                    "HTTP",
-                    "HTTPS",
-                    "TLS",
-                    "TCP",
-                    "HBONE"
-                  ]
+                  "enum": ["HTTP", "HTTPS", "TLS", "TCP", "HBONE"]
                 },
                 "tls": {
-                  "type": [
-                    "object",
-                    "null"
-                  ],
+                  "type": ["object", "null"],
                   "properties": {
                     "cert": {
                       "type": "string"
@@ -359,30 +236,18 @@
                     }
                   },
                   "additionalProperties": false,
-                  "required": [
-                    "cert",
-                    "key"
-                  ]
+                  "required": ["cert", "key"]
                 },
                 "routes": {
-                  "type": [
-                    "array",
-                    "null"
-                  ],
+                  "type": ["array", "null"],
                   "items": {
                     "type": "object",
                     "properties": {
                       "name": {
-                        "type": [
-                          "string",
-                          "null"
-                        ]
+                        "type": ["string", "null"]
                       },
                       "ruleName": {
-                        "type": [
-                          "string",
-                          "null"
-                        ]
+                        "type": ["string", "null"]
                       },
                       "hostnames": {
                         "description": "Can be a wildcard",
@@ -413,9 +278,7 @@
                                             "type": "string"
                                           }
                                         },
-                                        "required": [
-                                          "exact"
-                                        ],
+                                        "required": ["exact"],
                                         "additionalProperties": false
                                       },
                                       {
@@ -425,19 +288,14 @@
                                             "type": "string"
                                           }
                                         },
-                                        "required": [
-                                          "regex"
-                                        ],
+                                        "required": ["regex"],
                                         "additionalProperties": false
                                       }
                                     ]
                                   }
                                 },
                                 "additionalProperties": false,
-                                "required": [
-                                  "name",
-                                  "value"
-                                ]
+                                "required": ["name", "value"]
                               }
                             },
                             "path": {
@@ -449,9 +307,7 @@
                                       "type": "string"
                                     }
                                   },
-                                  "required": [
-                                    "exact"
-                                  ],
+                                  "required": ["exact"],
                                   "additionalProperties": false
                                 },
                                 {
@@ -461,9 +317,7 @@
                                       "type": "string"
                                     }
                                   },
-                                  "required": [
-                                    "pathPrefix"
-                                  ],
+                                  "required": ["pathPrefix"],
                                   "additionalProperties": false
                                 },
                                 {
@@ -485,9 +339,7 @@
                                       "maxItems": 2
                                     }
                                   },
-                                  "required": [
-                                    "regex"
-                                  ],
+                                  "required": ["regex"],
                                   "additionalProperties": false
                                 }
                               ]
@@ -512,9 +364,7 @@
                                             "type": "string"
                                           }
                                         },
-                                        "required": [
-                                          "exact"
-                                        ],
+                                        "required": ["exact"],
                                         "additionalProperties": false
                                       },
                                       {
@@ -524,26 +374,19 @@
                                             "type": "string"
                                           }
                                         },
-                                        "required": [
-                                          "regex"
-                                        ],
+                                        "required": ["regex"],
                                         "additionalProperties": false
                                       }
                                     ]
                                   }
                                 },
                                 "additionalProperties": false,
-                                "required": [
-                                  "name",
-                                  "value"
-                                ]
+                                "required": ["name", "value"]
                               }
                             }
                           },
                           "additionalProperties": false,
-                          "required": [
-                            "path"
-                          ]
+                          "required": ["path"]
                         },
                         "default": [
                           {
@@ -554,17 +397,11 @@
                         ]
                       },
                       "policies": {
-                        "type": [
-                          "object",
-                          "null"
-                        ],
+                        "type": ["object", "null"],
                         "properties": {
                           "requestHeaderModifier": {
                             "description": "Headers to be modified in the request.",
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "add": {
                                 "type": "object",
@@ -590,10 +427,7 @@
                           },
                           "responseHeaderModifier": {
                             "description": "Headers to be modified in the response.",
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "add": {
                                 "type": "object",
@@ -619,16 +453,10 @@
                           },
                           "requestRedirect": {
                             "description": "Directly respond to the request with a redirect.",
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "scheme": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
+                                "type": ["string", "null"]
                               },
                               "authority": {
                                 "anyOf": [
@@ -636,9 +464,7 @@
                                     "oneOf": [
                                       {
                                         "type": "string",
-                                        "enum": [
-                                          "auto"
-                                        ]
+                                        "enum": ["auto"]
                                       },
                                       {
                                         "type": "object",
@@ -647,9 +473,7 @@
                                             "type": "string"
                                           }
                                         },
-                                        "required": [
-                                          "full"
-                                        ],
+                                        "required": ["full"],
                                         "additionalProperties": false
                                       },
                                       {
@@ -659,9 +483,7 @@
                                             "type": "string"
                                           }
                                         },
-                                        "required": [
-                                          "host"
-                                        ],
+                                        "required": ["host"],
                                         "additionalProperties": false
                                       },
                                       {
@@ -674,9 +496,7 @@
                                             "maximum": 65535
                                           }
                                         },
-                                        "required": [
-                                          "port"
-                                        ],
+                                        "required": ["port"],
                                         "additionalProperties": false
                                       }
                                     ]
@@ -697,9 +517,7 @@
                                             "type": "string"
                                           }
                                         },
-                                        "required": [
-                                          "full"
-                                        ],
+                                        "required": ["full"],
                                         "additionalProperties": false
                                       },
                                       {
@@ -709,9 +527,7 @@
                                             "type": "string"
                                           }
                                         },
-                                        "required": [
-                                          "prefix"
-                                        ],
+                                        "required": ["prefix"],
                                         "additionalProperties": false
                                       }
                                     ]
@@ -722,10 +538,7 @@
                                 ]
                               },
                               "status": {
-                                "type": [
-                                  "integer",
-                                  "null"
-                                ],
+                                "type": ["integer", "null"],
                                 "format": "uint16",
                                 "minimum": 1,
                                 "maximum": 65535
@@ -736,10 +549,7 @@
                           },
                           "urlRewrite": {
                             "description": "Modify the URL path or authority.",
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "authority": {
                                 "anyOf": [
@@ -747,9 +557,7 @@
                                     "oneOf": [
                                       {
                                         "type": "string",
-                                        "enum": [
-                                          "auto"
-                                        ]
+                                        "enum": ["auto"]
                                       },
                                       {
                                         "type": "object",
@@ -758,9 +566,7 @@
                                             "type": "string"
                                           }
                                         },
-                                        "required": [
-                                          "full"
-                                        ],
+                                        "required": ["full"],
                                         "additionalProperties": false
                                       },
                                       {
@@ -770,9 +576,7 @@
                                             "type": "string"
                                           }
                                         },
-                                        "required": [
-                                          "host"
-                                        ],
+                                        "required": ["host"],
                                         "additionalProperties": false
                                       },
                                       {
@@ -785,9 +589,7 @@
                                             "maximum": 65535
                                           }
                                         },
-                                        "required": [
-                                          "port"
-                                        ],
+                                        "required": ["port"],
                                         "additionalProperties": false
                                       }
                                     ]
@@ -808,9 +610,7 @@
                                             "type": "string"
                                           }
                                         },
-                                        "required": [
-                                          "full"
-                                        ],
+                                        "required": ["full"],
                                         "additionalProperties": false
                                       },
                                       {
@@ -820,9 +620,7 @@
                                             "type": "string"
                                           }
                                         },
-                                        "required": [
-                                          "prefix"
-                                        ],
+                                        "required": ["prefix"],
                                         "additionalProperties": false
                                       }
                                     ]
@@ -838,18 +636,13 @@
                           },
                           "requestMirror": {
                             "description": "Mirror incoming requests to another destination.",
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "backend": {
                                 "oneOf": [
                                   {
                                     "type": "string",
-                                    "enum": [
-                                      "invalid"
-                                    ]
+                                    "enum": ["invalid"]
                                   },
                                   {
                                     "type": "object",
@@ -880,15 +673,10 @@
                                           }
                                         },
                                         "additionalProperties": false,
-                                        "required": [
-                                          "name",
-                                          "port"
-                                        ]
+                                        "required": ["name", "port"]
                                       }
                                     },
-                                    "required": [
-                                      "service"
-                                    ],
+                                    "required": ["service"],
                                     "additionalProperties": false
                                   },
                                   {
@@ -898,9 +686,7 @@
                                         "type": "string"
                                       }
                                     },
-                                    "required": [
-                                      "host"
-                                    ],
+                                    "required": ["host"],
                                     "additionalProperties": false
                                   }
                                 ]
@@ -911,23 +697,14 @@
                               }
                             },
                             "additionalProperties": false,
-                            "required": [
-                              "backend",
-                              "percentage"
-                            ]
+                            "required": ["backend", "percentage"]
                           },
                           "directResponse": {
                             "description": "Directly respond to the request with a static response.",
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "body": {
-                                "type": [
-                                  "array",
-                                  "string"
-                                ],
+                                "type": ["array", "string"],
                                 "items": {
                                   "type": "integer",
                                   "format": "uint8",
@@ -943,18 +720,12 @@
                               }
                             },
                             "additionalProperties": false,
-                            "required": [
-                              "body",
-                              "status"
-                            ],
+                            "required": ["body", "status"],
                             "default": null
                           },
                           "cors": {
                             "description": "Handle CORS preflight requests and append configured CORS headers to applicable requests.",
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "allowCredentials": {
                                 "type": "boolean",
@@ -989,10 +760,7 @@
                                 "default": []
                               },
                               "maxAge": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ],
+                                "type": ["string", "null"],
                                 "default": null
                               }
                             },
@@ -1001,10 +769,7 @@
                           },
                           "mcpAuthorization": {
                             "description": "Authorization policies for MCP access.",
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "rules": {
                                 "type": "array",
@@ -1014,17 +779,12 @@
                               }
                             },
                             "additionalProperties": false,
-                            "required": [
-                              "rules"
-                            ],
+                            "required": ["rules"],
                             "default": null
                           },
                           "authorization": {
                             "description": "Authorization policies for HTTP access.",
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "rules": {
                                 "type": "array",
@@ -1034,17 +794,12 @@
                               }
                             },
                             "additionalProperties": false,
-                            "required": [
-                              "rules"
-                            ],
+                            "required": ["rules"],
                             "default": null
                           },
                           "mcpAuthentication": {
                             "description": "Authentication for MCP clients.",
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "issuer": {
                                 "type": "string"
@@ -1067,9 +822,7 @@
                                             "additionalProperties": false
                                           }
                                         },
-                                        "required": [
-                                          "auth0"
-                                        ],
+                                        "required": ["auth0"],
                                         "additionalProperties": false
                                       },
                                       {
@@ -1080,9 +833,7 @@
                                             "additionalProperties": false
                                           }
                                         },
-                                        "required": [
-                                          "keycloak"
-                                        ],
+                                        "required": ["keycloak"],
                                         "additionalProperties": false
                                       }
                                     ]
@@ -1099,9 +850,7 @@
                                     "type": "string"
                                   }
                                 },
-                                "required": [
-                                  "resource"
-                                ],
+                                "required": ["resource"],
                                 "additionalProperties": true
                               }
                             },
@@ -1116,40 +865,25 @@
                           },
                           "a2a": {
                             "description": "Mark this traffic as A2A to enable A2A processing and telemetry.",
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "additionalProperties": false,
                             "default": null
                           },
                           "ai": {
                             "description": "Mark this as LLM traffic to enable LLM processing.",
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "promptGuard": {
-                                "type": [
-                                  "object",
-                                  "null"
-                                ],
+                                "type": ["object", "null"],
                                 "properties": {
                                   "request": {
-                                    "type": [
-                                      "object",
-                                      "null"
-                                    ],
+                                    "type": ["object", "null"],
                                     "properties": {
                                       "rejection": {
                                         "type": "object",
                                         "properties": {
                                           "body": {
-                                            "type": [
-                                              "array",
-                                              "string"
-                                            ],
+                                            "type": ["array", "string"],
                                             "items": {
                                               "type": "integer",
                                               "format": "uint8",
@@ -1173,18 +907,13 @@
                                         }
                                       },
                                       "regex": {
-                                        "type": [
-                                          "object",
-                                          "null"
-                                        ],
+                                        "type": ["object", "null"],
                                         "properties": {
                                           "action": {
                                             "oneOf": [
                                               {
                                                 "type": "string",
-                                                "enum": [
-                                                  "mask"
-                                                ]
+                                                "enum": ["mask"]
                                               },
                                               {
                                                 "type": "object",
@@ -1226,9 +955,7 @@
                                                     "additionalProperties": false
                                                   }
                                                 },
-                                                "required": [
-                                                  "reject"
-                                                ],
+                                                "required": ["reject"],
                                                 "additionalProperties": false
                                               }
                                             ],
@@ -1252,9 +979,7 @@
                                                     }
                                                   },
                                                   "additionalProperties": false,
-                                                  "required": [
-                                                    "builtin"
-                                                  ]
+                                                  "required": ["builtin"]
                                                 },
                                                 {
                                                   "type": "object",
@@ -1277,15 +1002,10 @@
                                           }
                                         },
                                         "additionalProperties": false,
-                                        "required": [
-                                          "rules"
-                                        ]
+                                        "required": ["rules"]
                                       },
                                       "webhook": {
-                                        "type": [
-                                          "object",
-                                          "null"
-                                        ],
+                                        "type": ["object", "null"],
                                         "properties": {
                                           "target": {
                                             "type": "string"
@@ -1307,9 +1027,7 @@
                                                           "type": "string"
                                                         }
                                                       },
-                                                      "required": [
-                                                        "exact"
-                                                      ],
+                                                      "required": ["exact"],
                                                       "additionalProperties": false
                                                     },
                                                     {
@@ -1319,39 +1037,26 @@
                                                           "type": "string"
                                                         }
                                                       },
-                                                      "required": [
-                                                        "regex"
-                                                      ],
+                                                      "required": ["regex"],
                                                       "additionalProperties": false
                                                     }
                                                   ]
                                                 }
                                               },
                                               "additionalProperties": false,
-                                              "required": [
-                                                "name",
-                                                "value"
-                                              ]
+                                              "required": ["name", "value"]
                                             }
                                           }
                                         },
                                         "additionalProperties": false,
-                                        "required": [
-                                          "target"
-                                        ]
+                                        "required": ["target"]
                                       },
                                       "openaiModeration": {
-                                        "type": [
-                                          "object",
-                                          "null"
-                                        ],
+                                        "type": ["object", "null"],
                                         "properties": {
                                           "model": {
                                             "description": "Model to use. Defaults to `omni-moderation-latest`",
-                                            "type": [
-                                              "string",
-                                              "null"
-                                            ]
+                                            "type": ["string", "null"]
                                           },
                                           "auth": {
                                             "oneOf": [
@@ -1363,9 +1068,7 @@
                                                     "additionalProperties": false
                                                   }
                                                 },
-                                                "required": [
-                                                  "passthrough"
-                                                ],
+                                                "required": ["passthrough"],
                                                 "additionalProperties": false
                                               },
                                               {
@@ -1380,9 +1083,7 @@
                                                             "type": "string"
                                                           }
                                                         },
-                                                        "required": [
-                                                          "file"
-                                                        ]
+                                                        "required": ["file"]
                                                       },
                                                       {
                                                         "type": "string"
@@ -1390,41 +1091,29 @@
                                                     ]
                                                   }
                                                 },
-                                                "required": [
-                                                  "key"
-                                                ],
+                                                "required": ["key"],
                                                 "additionalProperties": false
                                               }
                                             ]
                                           }
                                         },
                                         "additionalProperties": false,
-                                        "required": [
-                                          "auth"
-                                        ]
+                                        "required": ["auth"]
                                       }
                                     },
                                     "additionalProperties": false
                                   },
                                   "response": {
-                                    "type": [
-                                      "object",
-                                      "null"
-                                    ],
+                                    "type": ["object", "null"],
                                     "properties": {
                                       "regex": {
-                                        "type": [
-                                          "object",
-                                          "null"
-                                        ],
+                                        "type": ["object", "null"],
                                         "properties": {
                                           "action": {
                                             "oneOf": [
                                               {
                                                 "type": "string",
-                                                "enum": [
-                                                  "mask"
-                                                ]
+                                                "enum": ["mask"]
                                               },
                                               {
                                                 "type": "object",
@@ -1466,9 +1155,7 @@
                                                     "additionalProperties": false
                                                   }
                                                 },
-                                                "required": [
-                                                  "reject"
-                                                ],
+                                                "required": ["reject"],
                                                 "additionalProperties": false
                                               }
                                             ],
@@ -1492,9 +1179,7 @@
                                                     }
                                                   },
                                                   "additionalProperties": false,
-                                                  "required": [
-                                                    "builtin"
-                                                  ]
+                                                  "required": ["builtin"]
                                                 },
                                                 {
                                                   "type": "object",
@@ -1517,15 +1202,10 @@
                                           }
                                         },
                                         "additionalProperties": false,
-                                        "required": [
-                                          "rules"
-                                        ]
+                                        "required": ["rules"]
                                       },
                                       "webhook": {
-                                        "type": [
-                                          "object",
-                                          "null"
-                                        ],
+                                        "type": ["object", "null"],
                                         "properties": {
                                           "target": {
                                             "type": "string"
@@ -1547,9 +1227,7 @@
                                                           "type": "string"
                                                         }
                                                       },
-                                                      "required": [
-                                                        "exact"
-                                                      ],
+                                                      "required": ["exact"],
                                                       "additionalProperties": false
                                                     },
                                                     {
@@ -1559,26 +1237,19 @@
                                                           "type": "string"
                                                         }
                                                       },
-                                                      "required": [
-                                                        "regex"
-                                                      ],
+                                                      "required": ["regex"],
                                                       "additionalProperties": false
                                                     }
                                                   ]
                                                 }
                                               },
                                               "additionalProperties": false,
-                                              "required": [
-                                                "name",
-                                                "value"
-                                              ]
+                                              "required": ["name", "value"]
                                             }
                                           }
                                         },
                                         "additionalProperties": false,
-                                        "required": [
-                                          "target"
-                                        ]
+                                        "required": ["target"]
                                       }
                                     },
                                     "additionalProperties": false
@@ -1587,24 +1258,15 @@
                                 "additionalProperties": false
                               },
                               "defaults": {
-                                "type": [
-                                  "object",
-                                  "null"
-                                ],
+                                "type": ["object", "null"],
                                 "additionalProperties": true
                               },
                               "overrides": {
-                                "type": [
-                                  "object",
-                                  "null"
-                                ],
+                                "type": ["object", "null"],
                                 "additionalProperties": true
                               },
                               "prompts": {
-                                "type": [
-                                  "object",
-                                  "null"
-                                ],
+                                "type": ["object", "null"],
                                 "properties": {
                                   "append": {
                                     "type": "object",
@@ -1617,10 +1279,7 @@
                                       }
                                     },
                                     "additionalProperties": false,
-                                    "required": [
-                                      "role",
-                                      "content"
-                                    ]
+                                    "required": ["role", "content"]
                                   },
                                   "prepend": {
                                     "type": "object",
@@ -1633,10 +1292,7 @@
                                       }
                                     },
                                     "additionalProperties": false,
-                                    "required": [
-                                      "role",
-                                      "content"
-                                    ]
+                                    "required": ["role", "content"]
                                   }
                                 },
                                 "additionalProperties": false
@@ -1647,34 +1303,19 @@
                           },
                           "backendTLS": {
                             "description": "Send TLS to the backend.",
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "cert": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
+                                "type": ["string", "null"]
                               },
                               "key": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
+                                "type": ["string", "null"]
                               },
                               "root": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
+                                "type": ["string", "null"]
                               },
                               "hostname": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
+                                "type": ["string", "null"]
                               },
                               "insecure": {
                                 "type": "boolean",
@@ -1700,9 +1341,7 @@
                                         "additionalProperties": false
                                       }
                                     },
-                                    "required": [
-                                      "passthrough"
-                                    ],
+                                    "required": ["passthrough"],
                                     "additionalProperties": false
                                   },
                                   {
@@ -1717,9 +1356,7 @@
                                                 "type": "string"
                                               }
                                             },
-                                            "required": [
-                                              "file"
-                                            ]
+                                            "required": ["file"]
                                           },
                                           {
                                             "type": "string"
@@ -1727,9 +1364,7 @@
                                         ]
                                       }
                                     },
-                                    "required": [
-                                      "key"
-                                    ],
+                                    "required": ["key"],
                                     "additionalProperties": false
                                   },
                                   {
@@ -1740,9 +1375,7 @@
                                         "additionalProperties": false
                                       }
                                     },
-                                    "required": [
-                                      "gcp"
-                                    ],
+                                    "required": ["gcp"],
                                     "additionalProperties": false
                                   },
                                   {
@@ -1764,10 +1397,7 @@
                                                 "type": "string"
                                               },
                                               "sessionToken": {
-                                                "type": [
-                                                  "string",
-                                                  "null"
-                                                ]
+                                                "type": ["string", "null"]
                                               }
                                             },
                                             "additionalProperties": false,
@@ -1785,9 +1415,7 @@
                                         ]
                                       }
                                     },
-                                    "required": [
-                                      "aws"
-                                    ],
+                                    "required": ["aws"],
                                     "additionalProperties": false
                                   }
                                 ]
@@ -1821,17 +1449,12 @@
                                 },
                                 "type": {
                                   "type": "string",
-                                  "enum": [
-                                    "requests",
-                                    "tokens"
-                                  ],
+                                  "enum": ["requests", "tokens"],
                                   "default": "requests"
                                 }
                               },
                               "additionalProperties": false,
-                              "required": [
-                                "fillInterval"
-                              ]
+                              "required": ["fillInterval"]
                             },
                             "default": []
                           },
@@ -1861,39 +1484,26 @@
                                                 "type": "string"
                                               }
                                             },
-                                            "required": [
-                                              "key",
-                                              "value"
-                                            ]
+                                            "required": ["key", "value"]
                                           }
                                         },
                                         "type": {
                                           "type": "string",
-                                          "enum": [
-                                            "requests",
-                                            "tokens"
-                                          ],
+                                          "enum": ["requests", "tokens"],
                                           "default": "requests"
                                         }
                                       },
                                       "additionalProperties": false,
-                                      "required": [
-                                        "entries"
-                                      ]
+                                      "required": ["entries"]
                                     }
                                   }
                                 },
-                                "required": [
-                                  "domain",
-                                  "descriptors"
-                                ],
+                                "required": ["domain", "descriptors"],
                                 "unevaluatedProperties": false,
                                 "oneOf": [
                                   {
                                     "type": "string",
-                                    "enum": [
-                                      "invalid"
-                                    ]
+                                    "enum": ["invalid"]
                                   },
                                   {
                                     "type": "object",
@@ -1924,15 +1534,10 @@
                                           }
                                         },
                                         "additionalProperties": false,
-                                        "required": [
-                                          "name",
-                                          "port"
-                                        ]
+                                        "required": ["name", "port"]
                                       }
                                     },
-                                    "required": [
-                                      "service"
-                                    ]
+                                    "required": ["service"]
                                   },
                                   {
                                     "type": "object",
@@ -1941,9 +1546,7 @@
                                         "type": "string"
                                       }
                                     },
-                                    "required": [
-                                      "host"
-                                    ]
+                                    "required": ["host"]
                                   }
                                 ]
                               },
@@ -2003,9 +1606,7 @@
                                                       "type": "string"
                                                     }
                                                   },
-                                                  "required": [
-                                                    "file"
-                                                  ]
+                                                  "required": ["file"]
                                                 },
                                                 {
                                                   "type": "string"
@@ -2017,9 +1618,7 @@
                                                       "type": "string"
                                                     }
                                                   },
-                                                  "required": [
-                                                    "url"
-                                                  ]
+                                                  "required": ["url"]
                                                 }
                                               ]
                                             }
@@ -2034,9 +1633,7 @@
                                       }
                                     },
                                     "additionalProperties": false,
-                                    "required": [
-                                      "providers"
-                                    ]
+                                    "required": ["providers"]
                                   },
                                   {
                                     "type": "object",
@@ -2079,9 +1676,7 @@
                                                 "type": "string"
                                               }
                                             },
-                                            "required": [
-                                              "file"
-                                            ]
+                                            "required": ["file"]
                                           },
                                           {
                                             "type": "string"
@@ -2093,19 +1688,13 @@
                                                 "type": "string"
                                               }
                                             },
-                                            "required": [
-                                              "url"
-                                            ]
+                                            "required": ["url"]
                                           }
                                         ]
                                       }
                                     },
                                     "additionalProperties": false,
-                                    "required": [
-                                      "issuer",
-                                      "audiences",
-                                      "jwks"
-                                    ]
+                                    "required": ["issuer", "audiences", "jwks"]
                                   }
                                 ]
                               },
@@ -2121,26 +1710,17 @@
                                 "type": "object",
                                 "properties": {
                                   "context": {
-                                    "type": [
-                                      "object",
-                                      "null"
-                                    ],
+                                    "type": ["object", "null"],
                                     "additionalProperties": {
                                       "type": "string"
                                     }
                                   },
                                   "failOpen": {
-                                    "type": [
-                                      "boolean",
-                                      "null"
-                                    ],
+                                    "type": ["boolean", "null"],
                                     "default": null
                                   },
                                   "statusOnError": {
-                                    "type": [
-                                      "integer",
-                                      "null"
-                                    ],
+                                    "type": ["integer", "null"],
                                     "format": "uint16",
                                     "minimum": 0,
                                     "maximum": 65535
@@ -2150,9 +1730,7 @@
                                 "oneOf": [
                                   {
                                     "type": "string",
-                                    "enum": [
-                                      "invalid"
-                                    ]
+                                    "enum": ["invalid"]
                                   },
                                   {
                                     "type": "object",
@@ -2183,15 +1761,10 @@
                                           }
                                         },
                                         "additionalProperties": false,
-                                        "required": [
-                                          "name",
-                                          "port"
-                                        ]
+                                        "required": ["name", "port"]
                                       }
                                     },
-                                    "required": [
-                                      "service"
-                                    ]
+                                    "required": ["service"]
                                   },
                                   {
                                     "type": "object",
@@ -2200,9 +1773,7 @@
                                         "type": "string"
                                       }
                                     },
-                                    "required": [
-                                      "host"
-                                    ]
+                                    "required": ["host"]
                                   }
                                 ]
                               },
@@ -2213,16 +1784,10 @@
                           },
                           "transformations": {
                             "description": "Modify requests and responses",
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "request": {
-                                "type": [
-                                  "object",
-                                  "null"
-                                ],
+                                "type": ["object", "null"],
                                 "properties": {
                                   "add": {
                                     "type": "object",
@@ -2246,20 +1811,14 @@
                                     "default": []
                                   },
                                   "body": {
-                                    "type": [
-                                      "string",
-                                      "null"
-                                    ],
+                                    "type": ["string", "null"],
                                     "default": null
                                   }
                                 },
                                 "additionalProperties": false
                               },
                               "response": {
-                                "type": [
-                                  "object",
-                                  "null"
-                                ],
+                                "type": ["object", "null"],
                                 "properties": {
                                   "add": {
                                     "type": "object",
@@ -2283,10 +1842,7 @@
                                     "default": []
                                   },
                                   "body": {
-                                    "type": [
-                                      "string",
-                                      "null"
-                                    ],
+                                    "type": ["string", "null"],
                                     "default": null
                                   }
                                 },
@@ -2298,22 +1854,13 @@
                           },
                           "timeout": {
                             "description": "Timeout requests that exceed the configured duration.",
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "requestTimeout": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
+                                "type": ["string", "null"]
                               },
                               "backendRequestTimeout": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
+                                "type": ["string", "null"]
                               }
                             },
                             "additionalProperties": false,
@@ -2321,10 +1868,7 @@
                           },
                           "retry": {
                             "description": "Retry matching requests.",
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "attempts": {
                                 "type": "integer",
@@ -2334,10 +1878,7 @@
                                 "default": 1
                               },
                               "backoff": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
+                                "type": ["string", "null"]
                               },
                               "codes": {
                                 "type": "array",
@@ -2350,9 +1891,7 @@
                               }
                             },
                             "additionalProperties": false,
-                            "required": [
-                              "codes"
-                            ],
+                            "required": ["codes"],
                             "default": null
                           }
                         },
@@ -2374,9 +1913,7 @@
                           "oneOf": [
                             {
                               "type": "string",
-                              "enum": [
-                                "invalid"
-                              ]
+                              "enum": ["invalid"]
                             },
                             {
                               "type": "object",
@@ -2394,10 +1931,7 @@
                                           "type": "string"
                                         }
                                       },
-                                      "required": [
-                                        "namespace",
-                                        "hostname"
-                                      ]
+                                      "required": ["namespace", "hostname"]
                                     },
                                     "port": {
                                       "type": "integer",
@@ -2407,15 +1941,10 @@
                                     }
                                   },
                                   "additionalProperties": false,
-                                  "required": [
-                                    "name",
-                                    "port"
-                                  ]
+                                  "required": ["name", "port"]
                                 }
                               },
-                              "required": [
-                                "service"
-                              ]
+                              "required": ["service"]
                             },
                             {
                               "type": "object",
@@ -2424,9 +1953,7 @@
                                   "type": "string"
                                 }
                               },
-                              "required": [
-                                "host"
-                              ]
+                              "required": ["host"]
                             },
                             {
                               "type": "object",
@@ -2436,9 +1963,7 @@
                                   "additionalProperties": false
                                 }
                               },
-                              "required": [
-                                "dynamic"
-                              ]
+                              "required": ["dynamic"]
                             },
                             {
                               "type": "object",
@@ -2455,9 +1980,7 @@
                                             "type": "string"
                                           }
                                         },
-                                        "required": [
-                                          "name"
-                                        ],
+                                        "required": ["name"],
                                         "unevaluatedProperties": false,
                                         "oneOf": [
                                           {
@@ -2470,30 +1993,20 @@
                                                     "type": "string"
                                                   },
                                                   "port": {
-                                                    "type": [
-                                                      "integer",
-                                                      "null"
-                                                    ],
+                                                    "type": ["integer", "null"],
                                                     "format": "uint16",
                                                     "minimum": 0,
                                                     "maximum": 65535
                                                   },
                                                   "path": {
-                                                    "type": [
-                                                      "string",
-                                                      "null"
-                                                    ]
+                                                    "type": ["string", "null"]
                                                   }
                                                 },
                                                 "additionalProperties": false,
-                                                "required": [
-                                                  "host"
-                                                ]
+                                                "required": ["host"]
                                               }
                                             },
-                                            "required": [
-                                              "sse"
-                                            ]
+                                            "required": ["sse"]
                                           },
                                           {
                                             "type": "object",
@@ -2505,30 +2018,20 @@
                                                     "type": "string"
                                                   },
                                                   "port": {
-                                                    "type": [
-                                                      "integer",
-                                                      "null"
-                                                    ],
+                                                    "type": ["integer", "null"],
                                                     "format": "uint16",
                                                     "minimum": 0,
                                                     "maximum": 65535
                                                   },
                                                   "path": {
-                                                    "type": [
-                                                      "string",
-                                                      "null"
-                                                    ]
+                                                    "type": ["string", "null"]
                                                   }
                                                 },
                                                 "additionalProperties": false,
-                                                "required": [
-                                                  "host"
-                                                ]
+                                                "required": ["host"]
                                               }
                                             },
-                                            "required": [
-                                              "mcp"
-                                            ]
+                                            "required": ["mcp"]
                                           },
                                           {
                                             "type": "object",
@@ -2553,14 +2056,10 @@
                                                   }
                                                 },
                                                 "additionalProperties": false,
-                                                "required": [
-                                                  "cmd"
-                                                ]
+                                                "required": ["cmd"]
                                               }
                                             },
-                                            "required": [
-                                              "stdio"
-                                            ]
+                                            "required": ["stdio"]
                                           },
                                           {
                                             "type": "object",
@@ -2572,53 +2071,35 @@
                                                     "type": "string"
                                                   },
                                                   "port": {
-                                                    "type": [
-                                                      "integer",
-                                                      "null"
-                                                    ],
+                                                    "type": ["integer", "null"],
                                                     "format": "uint16",
                                                     "minimum": 0,
                                                     "maximum": 65535
                                                   },
                                                   "path": {
-                                                    "type": [
-                                                      "string",
-                                                      "null"
-                                                    ]
+                                                    "type": ["string", "null"]
                                                   },
                                                   "schema": true
                                                 },
                                                 "additionalProperties": false,
-                                                "required": [
-                                                  "host",
-                                                  "schema"
-                                                ]
+                                                "required": ["host", "schema"]
                                               }
                                             },
-                                            "required": [
-                                              "openapi"
-                                            ]
+                                            "required": ["openapi"]
                                           }
                                         ]
                                       }
                                     },
                                     "statefulMode": {
                                       "type": "string",
-                                      "enum": [
-                                        "stateless",
-                                        "stateful"
-                                      ]
+                                      "enum": ["stateless", "stateful"]
                                     }
                                   },
                                   "additionalProperties": false,
-                                  "required": [
-                                    "targets"
-                                  ]
+                                  "required": ["targets"]
                                 }
                               },
-                              "required": [
-                                "mcp"
-                              ]
+                              "required": ["mcp"]
                             },
                             {
                               "type": "object",
@@ -2640,18 +2121,13 @@
                                                   "type": "object",
                                                   "properties": {
                                                     "model": {
-                                                      "type": [
-                                                        "string",
-                                                        "null"
-                                                      ]
+                                                      "type": ["string", "null"]
                                                     }
                                                   },
                                                   "additionalProperties": false
                                                 }
                                               },
-                                              "required": [
-                                                "openAI"
-                                              ],
+                                              "required": ["openAI"],
                                               "additionalProperties": false
                                             },
                                             {
@@ -2661,17 +2137,12 @@
                                                   "type": "object",
                                                   "properties": {
                                                     "model": {
-                                                      "type": [
-                                                        "string",
-                                                        "null"
-                                                      ]
+                                                      "type": ["string", "null"]
                                                     }
                                                   }
                                                 }
                                               },
-                                              "required": [
-                                                "gemini"
-                                              ],
+                                              "required": ["gemini"],
                                               "additionalProperties": false
                                             },
                                             {
@@ -2681,29 +2152,19 @@
                                                   "type": "object",
                                                   "properties": {
                                                     "model": {
-                                                      "type": [
-                                                        "string",
-                                                        "null"
-                                                      ]
+                                                      "type": ["string", "null"]
                                                     },
                                                     "region": {
-                                                      "type": [
-                                                        "string",
-                                                        "null"
-                                                      ]
+                                                      "type": ["string", "null"]
                                                     },
                                                     "projectId": {
                                                       "type": "string"
                                                     }
                                                   },
-                                                  "required": [
-                                                    "projectId"
-                                                  ]
+                                                  "required": ["projectId"]
                                                 }
                                               },
-                                              "required": [
-                                                "vertex"
-                                              ],
+                                              "required": ["vertex"],
                                               "additionalProperties": false
                                             },
                                             {
@@ -2713,17 +2174,12 @@
                                                   "type": "object",
                                                   "properties": {
                                                     "model": {
-                                                      "type": [
-                                                        "string",
-                                                        "null"
-                                                      ]
+                                                      "type": ["string", "null"]
                                                     }
                                                   }
                                                 }
                                               },
-                                              "required": [
-                                                "anthropic"
-                                              ],
+                                              "required": ["anthropic"],
                                               "additionalProperties": false
                                             },
                                             {
@@ -2733,44 +2189,28 @@
                                                   "type": "object",
                                                   "properties": {
                                                     "model": {
-                                                      "type": [
-                                                        "string",
-                                                        "null"
-                                                      ]
+                                                      "type": ["string", "null"]
                                                     },
                                                     "region": {
                                                       "type": "string"
                                                     },
                                                     "guardrailIdentifier": {
-                                                      "type": [
-                                                        "string",
-                                                        "null"
-                                                      ]
+                                                      "type": ["string", "null"]
                                                     },
                                                     "guardrailVersion": {
-                                                      "type": [
-                                                        "string",
-                                                        "null"
-                                                      ]
+                                                      "type": ["string", "null"]
                                                     }
                                                   },
-                                                  "required": [
-                                                    "region"
-                                                  ]
+                                                  "required": ["region"]
                                                 }
                                               },
-                                              "required": [
-                                                "bedrock"
-                                              ],
+                                              "required": ["bedrock"],
                                               "additionalProperties": false
                                             }
                                           ]
                                         },
                                         "hostOverride": {
-                                          "type": [
-                                            "string",
-                                            "null"
-                                          ]
+                                          "type": ["string", "null"]
                                         },
                                         "tokenize": {
                                           "description": "Whether to tokenize on the request flow. This enables us to do more accurate rate limits,\nsince we know (part of) the cost of the request upfront.\nThis comes with the cost of an expensive operation.",
@@ -2779,10 +2219,7 @@
                                         }
                                       },
                                       "additionalProperties": false,
-                                      "required": [
-                                        "name",
-                                        "provider"
-                                      ]
+                                      "required": ["name", "provider"]
                                     },
                                     {
                                       "type": "object",
@@ -2813,9 +2250,7 @@
                                                         "additionalProperties": false
                                                       }
                                                     },
-                                                    "required": [
-                                                      "openAI"
-                                                    ],
+                                                    "required": ["openAI"],
                                                     "additionalProperties": false
                                                   },
                                                   {
@@ -2833,9 +2268,7 @@
                                                         }
                                                       }
                                                     },
-                                                    "required": [
-                                                      "gemini"
-                                                    ],
+                                                    "required": ["gemini"],
                                                     "additionalProperties": false
                                                   },
                                                   {
@@ -2865,9 +2298,7 @@
                                                         ]
                                                       }
                                                     },
-                                                    "required": [
-                                                      "vertex"
-                                                    ],
+                                                    "required": ["vertex"],
                                                     "additionalProperties": false
                                                   },
                                                   {
@@ -2885,9 +2316,7 @@
                                                         }
                                                       }
                                                     },
-                                                    "required": [
-                                                      "anthropic"
-                                                    ],
+                                                    "required": ["anthropic"],
                                                     "additionalProperties": false
                                                   },
                                                   {
@@ -2918,23 +2347,16 @@
                                                             ]
                                                           }
                                                         },
-                                                        "required": [
-                                                          "region"
-                                                        ]
+                                                        "required": ["region"]
                                                       }
                                                     },
-                                                    "required": [
-                                                      "bedrock"
-                                                    ],
+                                                    "required": ["bedrock"],
                                                     "additionalProperties": false
                                                   }
                                                 ]
                                               },
                                               "hostOverride": {
-                                                "type": [
-                                                  "string",
-                                                  "null"
-                                                ]
+                                                "type": ["string", "null"]
                                               },
                                               "tokenize": {
                                                 "description": "Whether to tokenize on the request flow. This enables us to do more accurate rate limits,\nsince we know (part of) the cost of the request upfront.\nThis comes with the cost of an expensive operation.",
@@ -2943,24 +2365,17 @@
                                               }
                                             },
                                             "additionalProperties": false,
-                                            "required": [
-                                              "name",
-                                              "provider"
-                                            ]
+                                            "required": ["name", "provider"]
                                           }
                                         }
                                       },
                                       "additionalProperties": false,
-                                      "required": [
-                                        "providers"
-                                      ]
+                                      "required": ["providers"]
                                     }
                                   ]
                                 }
                               },
-                              "required": [
-                                "ai"
-                              ]
+                              "required": ["ai"]
                             }
                           ]
                         }
@@ -2970,24 +2385,15 @@
                   }
                 },
                 "tcpRoutes": {
-                  "type": [
-                    "array",
-                    "null"
-                  ],
+                  "type": ["array", "null"],
                   "items": {
                     "type": "object",
                     "properties": {
                       "name": {
-                        "type": [
-                          "string",
-                          "null"
-                        ]
+                        "type": ["string", "null"]
                       },
                       "ruleName": {
-                        "type": [
-                          "string",
-                          "null"
-                        ]
+                        "type": ["string", "null"]
                       },
                       "hostnames": {
                         "description": "Can be a wildcard",
@@ -2997,40 +2403,22 @@
                         }
                       },
                       "policies": {
-                        "type": [
-                          "object",
-                          "null"
-                        ],
+                        "type": ["object", "null"],
                         "properties": {
                           "backendTls": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "cert": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
+                                "type": ["string", "null"]
                               },
                               "key": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
+                                "type": ["string", "null"]
                               },
                               "root": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
+                                "type": ["string", "null"]
                               },
                               "hostname": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
+                                "type": ["string", "null"]
                               },
                               "insecure": {
                                 "type": "boolean",
@@ -3061,9 +2449,7 @@
                               "oneOf": [
                                 {
                                   "type": "string",
-                                  "enum": [
-                                    "invalid"
-                                  ]
+                                  "enum": ["invalid"]
                                 },
                                 {
                                   "type": "object",
@@ -3081,10 +2467,7 @@
                                               "type": "string"
                                             }
                                           },
-                                          "required": [
-                                            "namespace",
-                                            "hostname"
-                                          ]
+                                          "required": ["namespace", "hostname"]
                                         },
                                         "port": {
                                           "type": "integer",
@@ -3094,15 +2477,10 @@
                                         }
                                       },
                                       "additionalProperties": false,
-                                      "required": [
-                                        "name",
-                                        "port"
-                                      ]
+                                      "required": ["name", "port"]
                                     }
                                   },
-                                  "required": [
-                                    "service"
-                                  ],
+                                  "required": ["service"],
                                   "additionalProperties": false
                                 },
                                 {
@@ -3112,18 +2490,14 @@
                                       "type": "string"
                                     }
                                   },
-                                  "required": [
-                                    "host"
-                                  ],
+                                  "required": ["host"],
                                   "additionalProperties": false
                                 }
                               ]
                             }
                           },
                           "additionalProperties": false,
-                          "required": [
-                            "backend"
-                          ]
+                          "required": ["backend"]
                         }
                       }
                     },
@@ -3136,10 +2510,7 @@
           }
         },
         "additionalProperties": false,
-        "required": [
-          "port",
-          "listeners"
-        ]
+        "required": ["port", "listeners"]
       }
     },
     "policies": {
@@ -3160,9 +2531,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "gateway"
-                ],
+                "required": ["gateway"],
                 "additionalProperties": false
               },
               {
@@ -3172,9 +2541,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "listener"
-                ],
+                "required": ["listener"],
                 "additionalProperties": false
               },
               {
@@ -3184,9 +2551,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "route"
-                ],
+                "required": ["route"],
                 "additionalProperties": false
               },
               {
@@ -3196,9 +2561,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "routeRule"
-                ],
+                "required": ["routeRule"],
                 "additionalProperties": false
               },
               {
@@ -3208,9 +2571,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "service"
-                ],
+                "required": ["service"],
                 "additionalProperties": false
               },
               {
@@ -3220,9 +2581,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "backend"
-                ],
+                "required": ["backend"],
                 "additionalProperties": false
               }
             ]
@@ -3232,10 +2591,7 @@
             "properties": {
               "requestHeaderModifier": {
                 "description": "Headers to be modified in the request.",
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": ["object", "null"],
                 "properties": {
                   "add": {
                     "type": "object",
@@ -3261,10 +2617,7 @@
               },
               "responseHeaderModifier": {
                 "description": "Headers to be modified in the response.",
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": ["object", "null"],
                 "properties": {
                   "add": {
                     "type": "object",
@@ -3290,16 +2643,10 @@
               },
               "requestRedirect": {
                 "description": "Directly respond to the request with a redirect.",
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": ["object", "null"],
                 "properties": {
                   "scheme": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": ["string", "null"]
                   },
                   "authority": {
                     "anyOf": [
@@ -3307,9 +2654,7 @@
                         "oneOf": [
                           {
                             "type": "string",
-                            "enum": [
-                              "auto"
-                            ]
+                            "enum": ["auto"]
                           },
                           {
                             "type": "object",
@@ -3318,9 +2663,7 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "full"
-                            ],
+                            "required": ["full"],
                             "additionalProperties": false
                           },
                           {
@@ -3330,9 +2673,7 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "host"
-                            ],
+                            "required": ["host"],
                             "additionalProperties": false
                           },
                           {
@@ -3345,9 +2686,7 @@
                                 "maximum": 65535
                               }
                             },
-                            "required": [
-                              "port"
-                            ],
+                            "required": ["port"],
                             "additionalProperties": false
                           }
                         ]
@@ -3368,9 +2707,7 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "full"
-                            ],
+                            "required": ["full"],
                             "additionalProperties": false
                           },
                           {
@@ -3380,9 +2717,7 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "prefix"
-                            ],
+                            "required": ["prefix"],
                             "additionalProperties": false
                           }
                         ]
@@ -3393,10 +2728,7 @@
                     ]
                   },
                   "status": {
-                    "type": [
-                      "integer",
-                      "null"
-                    ],
+                    "type": ["integer", "null"],
                     "format": "uint16",
                     "minimum": 1,
                     "maximum": 65535
@@ -3407,10 +2739,7 @@
               },
               "urlRewrite": {
                 "description": "Modify the URL path or authority.",
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": ["object", "null"],
                 "properties": {
                   "authority": {
                     "anyOf": [
@@ -3418,9 +2747,7 @@
                         "oneOf": [
                           {
                             "type": "string",
-                            "enum": [
-                              "auto"
-                            ]
+                            "enum": ["auto"]
                           },
                           {
                             "type": "object",
@@ -3429,9 +2756,7 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "full"
-                            ],
+                            "required": ["full"],
                             "additionalProperties": false
                           },
                           {
@@ -3441,9 +2766,7 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "host"
-                            ],
+                            "required": ["host"],
                             "additionalProperties": false
                           },
                           {
@@ -3456,9 +2779,7 @@
                                 "maximum": 65535
                               }
                             },
-                            "required": [
-                              "port"
-                            ],
+                            "required": ["port"],
                             "additionalProperties": false
                           }
                         ]
@@ -3479,9 +2800,7 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "full"
-                            ],
+                            "required": ["full"],
                             "additionalProperties": false
                           },
                           {
@@ -3491,9 +2810,7 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "prefix"
-                            ],
+                            "required": ["prefix"],
                             "additionalProperties": false
                           }
                         ]
@@ -3509,18 +2826,13 @@
               },
               "requestMirror": {
                 "description": "Mirror incoming requests to another destination.",
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": ["object", "null"],
                 "properties": {
                   "backend": {
                     "oneOf": [
                       {
                         "type": "string",
-                        "enum": [
-                          "invalid"
-                        ]
+                        "enum": ["invalid"]
                       },
                       {
                         "type": "object",
@@ -3538,10 +2850,7 @@
                                     "type": "string"
                                   }
                                 },
-                                "required": [
-                                  "namespace",
-                                  "hostname"
-                                ]
+                                "required": ["namespace", "hostname"]
                               },
                               "port": {
                                 "type": "integer",
@@ -3551,15 +2860,10 @@
                               }
                             },
                             "additionalProperties": false,
-                            "required": [
-                              "name",
-                              "port"
-                            ]
+                            "required": ["name", "port"]
                           }
                         },
-                        "required": [
-                          "service"
-                        ],
+                        "required": ["service"],
                         "additionalProperties": false
                       },
                       {
@@ -3569,9 +2873,7 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "host"
-                        ],
+                        "required": ["host"],
                         "additionalProperties": false
                       }
                     ]
@@ -3582,23 +2884,14 @@
                   }
                 },
                 "additionalProperties": false,
-                "required": [
-                  "backend",
-                  "percentage"
-                ]
+                "required": ["backend", "percentage"]
               },
               "directResponse": {
                 "description": "Directly respond to the request with a static response.",
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": ["object", "null"],
                 "properties": {
                   "body": {
-                    "type": [
-                      "array",
-                      "string"
-                    ],
+                    "type": ["array", "string"],
                     "items": {
                       "type": "integer",
                       "format": "uint8",
@@ -3614,18 +2907,12 @@
                   }
                 },
                 "additionalProperties": false,
-                "required": [
-                  "body",
-                  "status"
-                ],
+                "required": ["body", "status"],
                 "default": null
               },
               "cors": {
                 "description": "Handle CORS preflight requests and append configured CORS headers to applicable requests.",
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": ["object", "null"],
                 "properties": {
                   "allowCredentials": {
                     "type": "boolean",
@@ -3660,10 +2947,7 @@
                     "default": []
                   },
                   "maxAge": {
-                    "type": [
-                      "string",
-                      "null"
-                    ],
+                    "type": ["string", "null"],
                     "default": null
                   }
                 },
@@ -3672,10 +2956,7 @@
               },
               "mcpAuthorization": {
                 "description": "Authorization policies for MCP access.",
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": ["object", "null"],
                 "properties": {
                   "rules": {
                     "type": "array",
@@ -3685,17 +2966,12 @@
                   }
                 },
                 "additionalProperties": false,
-                "required": [
-                  "rules"
-                ],
+                "required": ["rules"],
                 "default": null
               },
               "authorization": {
                 "description": "Authorization policies for HTTP access.",
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": ["object", "null"],
                 "properties": {
                   "rules": {
                     "type": "array",
@@ -3705,17 +2981,12 @@
                   }
                 },
                 "additionalProperties": false,
-                "required": [
-                  "rules"
-                ],
+                "required": ["rules"],
                 "default": null
               },
               "mcpAuthentication": {
                 "description": "Authentication for MCP clients.",
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": ["object", "null"],
                 "properties": {
                   "issuer": {
                     "type": "string"
@@ -3738,9 +3009,7 @@
                                 "additionalProperties": false
                               }
                             },
-                            "required": [
-                              "auth0"
-                            ],
+                            "required": ["auth0"],
                             "additionalProperties": false
                           },
                           {
@@ -3751,9 +3020,7 @@
                                 "additionalProperties": false
                               }
                             },
-                            "required": [
-                              "keycloak"
-                            ],
+                            "required": ["keycloak"],
                             "additionalProperties": false
                           }
                         ]
@@ -3770,9 +3037,7 @@
                         "type": "string"
                       }
                     },
-                    "required": [
-                      "resource"
-                    ],
+                    "required": ["resource"],
                     "additionalProperties": true
                   }
                 },
@@ -3787,40 +3052,25 @@
               },
               "a2a": {
                 "description": "Mark this traffic as A2A to enable A2A processing and telemetry.",
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": ["object", "null"],
                 "additionalProperties": false,
                 "default": null
               },
               "ai": {
                 "description": "Mark this as LLM traffic to enable LLM processing.",
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": ["object", "null"],
                 "properties": {
                   "promptGuard": {
-                    "type": [
-                      "object",
-                      "null"
-                    ],
+                    "type": ["object", "null"],
                     "properties": {
                       "request": {
-                        "type": [
-                          "object",
-                          "null"
-                        ],
+                        "type": ["object", "null"],
                         "properties": {
                           "rejection": {
                             "type": "object",
                             "properties": {
                               "body": {
-                                "type": [
-                                  "array",
-                                  "string"
-                                ],
+                                "type": ["array", "string"],
                                 "items": {
                                   "type": "integer",
                                   "format": "uint8",
@@ -3844,18 +3094,13 @@
                             }
                           },
                           "regex": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "action": {
                                 "oneOf": [
                                   {
                                     "type": "string",
-                                    "enum": [
-                                      "mask"
-                                    ]
+                                    "enum": ["mask"]
                                   },
                                   {
                                     "type": "object",
@@ -3867,10 +3112,7 @@
                                             "type": "object",
                                             "properties": {
                                               "body": {
-                                                "type": [
-                                                  "array",
-                                                  "string"
-                                                ],
+                                                "type": ["array", "string"],
                                                 "items": {
                                                   "type": "integer",
                                                   "format": "uint8",
@@ -3897,9 +3139,7 @@
                                         "additionalProperties": false
                                       }
                                     },
-                                    "required": [
-                                      "reject"
-                                    ],
+                                    "required": ["reject"],
                                     "additionalProperties": false
                                   }
                                 ],
@@ -3923,9 +3163,7 @@
                                         }
                                       },
                                       "additionalProperties": false,
-                                      "required": [
-                                        "builtin"
-                                      ]
+                                      "required": ["builtin"]
                                     },
                                     {
                                       "type": "object",
@@ -3938,25 +3176,17 @@
                                         }
                                       },
                                       "additionalProperties": false,
-                                      "required": [
-                                        "pattern",
-                                        "name"
-                                      ]
+                                      "required": ["pattern", "name"]
                                     }
                                   ]
                                 }
                               }
                             },
                             "additionalProperties": false,
-                            "required": [
-                              "rules"
-                            ]
+                            "required": ["rules"]
                           },
                           "webhook": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "target": {
                                 "type": "string"
@@ -3978,9 +3208,7 @@
                                               "type": "string"
                                             }
                                           },
-                                          "required": [
-                                            "exact"
-                                          ],
+                                          "required": ["exact"],
                                           "additionalProperties": false
                                         },
                                         {
@@ -3990,39 +3218,26 @@
                                               "type": "string"
                                             }
                                           },
-                                          "required": [
-                                            "regex"
-                                          ],
+                                          "required": ["regex"],
                                           "additionalProperties": false
                                         }
                                       ]
                                     }
                                   },
                                   "additionalProperties": false,
-                                  "required": [
-                                    "name",
-                                    "value"
-                                  ]
+                                  "required": ["name", "value"]
                                 }
                               }
                             },
                             "additionalProperties": false,
-                            "required": [
-                              "target"
-                            ]
+                            "required": ["target"]
                           },
                           "openaiModeration": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "model": {
                                 "description": "Model to use. Defaults to `omni-moderation-latest`",
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
+                                "type": ["string", "null"]
                               },
                               "auth": {
                                 "oneOf": [
@@ -4034,9 +3249,7 @@
                                         "additionalProperties": false
                                       }
                                     },
-                                    "required": [
-                                      "passthrough"
-                                    ],
+                                    "required": ["passthrough"],
                                     "additionalProperties": false
                                   },
                                   {
@@ -4051,9 +3264,7 @@
                                                 "type": "string"
                                               }
                                             },
-                                            "required": [
-                                              "file"
-                                            ]
+                                            "required": ["file"]
                                           },
                                           {
                                             "type": "string"
@@ -4061,41 +3272,29 @@
                                         ]
                                       }
                                     },
-                                    "required": [
-                                      "key"
-                                    ],
+                                    "required": ["key"],
                                     "additionalProperties": false
                                   }
                                 ]
                               }
                             },
                             "additionalProperties": false,
-                            "required": [
-                              "auth"
-                            ]
+                            "required": ["auth"]
                           }
                         },
                         "additionalProperties": false
                       },
                       "response": {
-                        "type": [
-                          "object",
-                          "null"
-                        ],
+                        "type": ["object", "null"],
                         "properties": {
                           "regex": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "action": {
                                 "oneOf": [
                                   {
                                     "type": "string",
-                                    "enum": [
-                                      "mask"
-                                    ]
+                                    "enum": ["mask"]
                                   },
                                   {
                                     "type": "object",
@@ -4107,10 +3306,7 @@
                                             "type": "object",
                                             "properties": {
                                               "body": {
-                                                "type": [
-                                                  "array",
-                                                  "string"
-                                                ],
+                                                "type": ["array", "string"],
                                                 "items": {
                                                   "type": "integer",
                                                   "format": "uint8",
@@ -4137,9 +3333,7 @@
                                         "additionalProperties": false
                                       }
                                     },
-                                    "required": [
-                                      "reject"
-                                    ],
+                                    "required": ["reject"],
                                     "additionalProperties": false
                                   }
                                 ],
@@ -4163,9 +3357,7 @@
                                         }
                                       },
                                       "additionalProperties": false,
-                                      "required": [
-                                        "builtin"
-                                      ]
+                                      "required": ["builtin"]
                                     },
                                     {
                                       "type": "object",
@@ -4178,25 +3370,17 @@
                                         }
                                       },
                                       "additionalProperties": false,
-                                      "required": [
-                                        "pattern",
-                                        "name"
-                                      ]
+                                      "required": ["pattern", "name"]
                                     }
                                   ]
                                 }
                               }
                             },
                             "additionalProperties": false,
-                            "required": [
-                              "rules"
-                            ]
+                            "required": ["rules"]
                           },
                           "webhook": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": ["object", "null"],
                             "properties": {
                               "target": {
                                 "type": "string"
@@ -4218,9 +3402,7 @@
                                               "type": "string"
                                             }
                                           },
-                                          "required": [
-                                            "exact"
-                                          ],
+                                          "required": ["exact"],
                                           "additionalProperties": false
                                         },
                                         {
@@ -4230,26 +3412,19 @@
                                               "type": "string"
                                             }
                                           },
-                                          "required": [
-                                            "regex"
-                                          ],
+                                          "required": ["regex"],
                                           "additionalProperties": false
                                         }
                                       ]
                                     }
                                   },
                                   "additionalProperties": false,
-                                  "required": [
-                                    "name",
-                                    "value"
-                                  ]
+                                  "required": ["name", "value"]
                                 }
                               }
                             },
                             "additionalProperties": false,
-                            "required": [
-                              "target"
-                            ]
+                            "required": ["target"]
                           }
                         },
                         "additionalProperties": false
@@ -4258,24 +3433,15 @@
                     "additionalProperties": false
                   },
                   "defaults": {
-                    "type": [
-                      "object",
-                      "null"
-                    ],
+                    "type": ["object", "null"],
                     "additionalProperties": true
                   },
                   "overrides": {
-                    "type": [
-                      "object",
-                      "null"
-                    ],
+                    "type": ["object", "null"],
                     "additionalProperties": true
                   },
                   "prompts": {
-                    "type": [
-                      "object",
-                      "null"
-                    ],
+                    "type": ["object", "null"],
                     "properties": {
                       "append": {
                         "type": "object",
@@ -4288,10 +3454,7 @@
                           }
                         },
                         "additionalProperties": false,
-                        "required": [
-                          "role",
-                          "content"
-                        ]
+                        "required": ["role", "content"]
                       },
                       "prepend": {
                         "type": "object",
@@ -4304,10 +3467,7 @@
                           }
                         },
                         "additionalProperties": false,
-                        "required": [
-                          "role",
-                          "content"
-                        ]
+                        "required": ["role", "content"]
                       }
                     },
                     "additionalProperties": false
@@ -4318,34 +3478,19 @@
               },
               "backendTLS": {
                 "description": "Send TLS to the backend.",
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": ["object", "null"],
                 "properties": {
                   "cert": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": ["string", "null"]
                   },
                   "key": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": ["string", "null"]
                   },
                   "root": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": ["string", "null"]
                   },
                   "hostname": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": ["string", "null"]
                   },
                   "insecure": {
                     "type": "boolean",
@@ -4371,9 +3516,7 @@
                             "additionalProperties": false
                           }
                         },
-                        "required": [
-                          "passthrough"
-                        ],
+                        "required": ["passthrough"],
                         "additionalProperties": false
                       },
                       {
@@ -4388,9 +3531,7 @@
                                     "type": "string"
                                   }
                                 },
-                                "required": [
-                                  "file"
-                                ]
+                                "required": ["file"]
                               },
                               {
                                 "type": "string"
@@ -4398,9 +3539,7 @@
                             ]
                           }
                         },
-                        "required": [
-                          "key"
-                        ],
+                        "required": ["key"],
                         "additionalProperties": false
                       },
                       {
@@ -4411,9 +3550,7 @@
                             "additionalProperties": false
                           }
                         },
-                        "required": [
-                          "gcp"
-                        ],
+                        "required": ["gcp"],
                         "additionalProperties": false
                       },
                       {
@@ -4435,10 +3572,7 @@
                                     "type": "string"
                                   },
                                   "sessionToken": {
-                                    "type": [
-                                      "string",
-                                      "null"
-                                    ]
+                                    "type": ["string", "null"]
                                   }
                                 },
                                 "additionalProperties": false,
@@ -4456,9 +3590,7 @@
                             ]
                           }
                         },
-                        "required": [
-                          "aws"
-                        ],
+                        "required": ["aws"],
                         "additionalProperties": false
                       }
                     ]
@@ -4492,17 +3624,12 @@
                     },
                     "type": {
                       "type": "string",
-                      "enum": [
-                        "requests",
-                        "tokens"
-                      ],
+                      "enum": ["requests", "tokens"],
                       "default": "requests"
                     }
                   },
                   "additionalProperties": false,
-                  "required": [
-                    "fillInterval"
-                  ]
+                  "required": ["fillInterval"]
                 },
                 "default": []
               },
@@ -4532,39 +3659,26 @@
                                     "type": "string"
                                   }
                                 },
-                                "required": [
-                                  "key",
-                                  "value"
-                                ]
+                                "required": ["key", "value"]
                               }
                             },
                             "type": {
                               "type": "string",
-                              "enum": [
-                                "requests",
-                                "tokens"
-                              ],
+                              "enum": ["requests", "tokens"],
                               "default": "requests"
                             }
                           },
                           "additionalProperties": false,
-                          "required": [
-                            "entries"
-                          ]
+                          "required": ["entries"]
                         }
                       }
                     },
-                    "required": [
-                      "domain",
-                      "descriptors"
-                    ],
+                    "required": ["domain", "descriptors"],
                     "unevaluatedProperties": false,
                     "oneOf": [
                       {
                         "type": "string",
-                        "enum": [
-                          "invalid"
-                        ]
+                        "enum": ["invalid"]
                       },
                       {
                         "type": "object",
@@ -4582,10 +3696,7 @@
                                     "type": "string"
                                   }
                                 },
-                                "required": [
-                                  "namespace",
-                                  "hostname"
-                                ]
+                                "required": ["namespace", "hostname"]
                               },
                               "port": {
                                 "type": "integer",
@@ -4595,15 +3706,10 @@
                               }
                             },
                             "additionalProperties": false,
-                            "required": [
-                              "name",
-                              "port"
-                            ]
+                            "required": ["name", "port"]
                           }
                         },
-                        "required": [
-                          "service"
-                        ]
+                        "required": ["service"]
                       },
                       {
                         "type": "object",
@@ -4612,9 +3718,7 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "host"
-                        ]
+                        "required": ["host"]
                       }
                     ]
                   },
@@ -4674,9 +3778,7 @@
                                           "type": "string"
                                         }
                                       },
-                                      "required": [
-                                        "file"
-                                      ]
+                                      "required": ["file"]
                                     },
                                     {
                                       "type": "string"
@@ -4688,26 +3790,18 @@
                                           "type": "string"
                                         }
                                       },
-                                      "required": [
-                                        "url"
-                                      ]
+                                      "required": ["url"]
                                     }
                                   ]
                                 }
                               },
                               "additionalProperties": false,
-                              "required": [
-                                "issuer",
-                                "audiences",
-                                "jwks"
-                              ]
+                              "required": ["issuer", "audiences", "jwks"]
                             }
                           }
                         },
                         "additionalProperties": false,
-                        "required": [
-                          "providers"
-                        ]
+                        "required": ["providers"]
                       },
                       {
                         "type": "object",
@@ -4750,9 +3844,7 @@
                                     "type": "string"
                                   }
                                 },
-                                "required": [
-                                  "file"
-                                ]
+                                "required": ["file"]
                               },
                               {
                                 "type": "string"
@@ -4764,19 +3856,13 @@
                                     "type": "string"
                                   }
                                 },
-                                "required": [
-                                  "url"
-                                ]
+                                "required": ["url"]
                               }
                             ]
                           }
                         },
                         "additionalProperties": false,
-                        "required": [
-                          "issuer",
-                          "audiences",
-                          "jwks"
-                        ]
+                        "required": ["issuer", "audiences", "jwks"]
                       }
                     ]
                   },
@@ -4792,26 +3878,17 @@
                     "type": "object",
                     "properties": {
                       "context": {
-                        "type": [
-                          "object",
-                          "null"
-                        ],
+                        "type": ["object", "null"],
                         "additionalProperties": {
                           "type": "string"
                         }
                       },
                       "failOpen": {
-                        "type": [
-                          "boolean",
-                          "null"
-                        ],
+                        "type": ["boolean", "null"],
                         "default": null
                       },
                       "statusOnError": {
-                        "type": [
-                          "integer",
-                          "null"
-                        ],
+                        "type": ["integer", "null"],
                         "format": "uint16",
                         "minimum": 0,
                         "maximum": 65535
@@ -4821,9 +3898,7 @@
                     "oneOf": [
                       {
                         "type": "string",
-                        "enum": [
-                          "invalid"
-                        ]
+                        "enum": ["invalid"]
                       },
                       {
                         "type": "object",
@@ -4841,10 +3916,7 @@
                                     "type": "string"
                                   }
                                 },
-                                "required": [
-                                  "namespace",
-                                  "hostname"
-                                ]
+                                "required": ["namespace", "hostname"]
                               },
                               "port": {
                                 "type": "integer",
@@ -4854,15 +3926,10 @@
                               }
                             },
                             "additionalProperties": false,
-                            "required": [
-                              "name",
-                              "port"
-                            ]
+                            "required": ["name", "port"]
                           }
                         },
-                        "required": [
-                          "service"
-                        ]
+                        "required": ["service"]
                       },
                       {
                         "type": "object",
@@ -4871,9 +3938,7 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "host"
-                        ]
+                        "required": ["host"]
                       }
                     ]
                   },
@@ -4884,16 +3949,10 @@
               },
               "transformations": {
                 "description": "Modify requests and responses",
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": ["object", "null"],
                 "properties": {
                   "request": {
-                    "type": [
-                      "object",
-                      "null"
-                    ],
+                    "type": ["object", "null"],
                     "properties": {
                       "add": {
                         "type": "object",
@@ -4917,20 +3976,14 @@
                         "default": []
                       },
                       "body": {
-                        "type": [
-                          "string",
-                          "null"
-                        ],
+                        "type": ["string", "null"],
                         "default": null
                       }
                     },
                     "additionalProperties": false
                   },
                   "response": {
-                    "type": [
-                      "object",
-                      "null"
-                    ],
+                    "type": ["object", "null"],
                     "properties": {
                       "add": {
                         "type": "object",
@@ -4954,10 +4007,7 @@
                         "default": []
                       },
                       "body": {
-                        "type": [
-                          "string",
-                          "null"
-                        ],
+                        "type": ["string", "null"],
                         "default": null
                       }
                     },
@@ -4969,22 +4019,13 @@
               },
               "timeout": {
                 "description": "Timeout requests that exceed the configured duration.",
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": ["object", "null"],
                 "properties": {
                   "requestTimeout": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": ["string", "null"]
                   },
                   "backendRequestTimeout": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": ["string", "null"]
                   }
                 },
                 "additionalProperties": false,
@@ -4992,10 +4033,7 @@
               },
               "retry": {
                 "description": "Retry matching requests.",
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": ["object", "null"],
                 "properties": {
                   "attempts": {
                     "type": "integer",
@@ -5005,10 +4043,7 @@
                     "default": 1
                   },
                   "backoff": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": ["string", "null"]
                   },
                   "codes": {
                     "type": "array",
@@ -5021,9 +4056,7 @@
                   }
                 },
                 "additionalProperties": false,
-                "required": [
-                  "codes"
-                ],
+                "required": ["codes"],
                 "default": null
               }
             },
@@ -5031,11 +4064,7 @@
           }
         },
         "additionalProperties": false,
-        "required": [
-          "name",
-          "target",
-          "policy"
-        ]
+        "required": ["name", "target", "policy"]
       }
     },
     "workloads": {

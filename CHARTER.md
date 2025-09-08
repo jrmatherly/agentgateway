@@ -148,7 +148,7 @@ c. Under no circumstances will LF Projects be expected or required to undertake 
 action on behalf of the Project that is inconsistent with the tax-exempt status or
 purpose, as applicable, of the Joint Development Foundation or LF Projects, LLC.
 
-### 6. General Rules and Operations.
+### 6. General Rules and Operations
 
 a. The Project will:
 - engage in the work of the Project in a professional manner consistent with
